@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.EditText;
 
-//Change to Firebase
+//Change to Firebase, look at android integration
 public class database extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "people.db";
