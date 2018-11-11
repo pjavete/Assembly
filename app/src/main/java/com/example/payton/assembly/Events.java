@@ -19,6 +19,7 @@ public class Events extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
 
+
         //Enter info button
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
