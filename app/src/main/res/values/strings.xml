@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyEvents</string>
+    <string name="Open">Open navigation drawer</string>
+    <string name="Close">Close navigation drawer</string>
+</resources>
