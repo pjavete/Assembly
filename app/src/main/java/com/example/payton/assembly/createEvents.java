@@ -15,8 +15,10 @@ import java.io.IOException;
 public class createEvents extends AppCompatActivity {
     private static final String FILE_NAME = "photos.txt";
     EditText eventText;
-    EditText timeText;
-    EditText dateText;
+    EditText startTime;
+    EditText endTime;
+    EditText startDate;
+    EditText endDate;
     EditText locationText;
     EditText descText;
     Button submit;
@@ -26,8 +28,10 @@ public class createEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
         eventText = findViewById(R.id.eventText);
-        timeText = findViewById(R.id.timeText);
-        dateText = findViewById(R.id.dateText);
+        startTime = findViewById(R.id.startTime);
+        endTime = findViewById(R.id.endTime);
+        startDate = findViewById(R.id.startDate);
+        endDate = findViewById(R.id.endDate);
         locationText = findViewById(R.id.locationText);
         descText = findViewById(R.id.descText);
         submit = findViewById(R.id.submitButton);
@@ -35,8 +39,10 @@ public class createEvents extends AppCompatActivity {
 
     public void submit(View view) {
         String eventTitle = eventText.getText().toString() + "\n";
-        String time = timeText.getText().toString() + "\n";
-        String date = dateText.getText().toString() + "\n";
+        String sDate = startDate.getText().toString() + "\n";
+        String eDate = endDate.getText().toString() + "\n";
+        String sTime = startTime.getText().toString() + "\n";
+        String eTime = endTime.getText().toString() + "\n";
         String location = locationText.getText().toString()  + "\n";
         String description = descText.getText().toString() + "\n";
 
@@ -46,15 +52,19 @@ public class createEvents extends AppCompatActivity {
         try {
             stream = openFileOutput(FILE_NAME, MODE_APPEND);
             stream.write(eventTitle.getBytes());
-            stream.write(time.getBytes());
-            stream.write(date.getBytes());
+            stream.write(sDate.getBytes());
+            stream.write(eDate.getBytes());
+            stream.write(sTime.getBytes());
+            stream.write(eTime.getBytes());
             stream.write(location.getBytes());
             stream.write(description.getBytes());
 
 
             eventText.getText().clear();
-            timeText.getText().clear();
-            dateText.getText().clear();
+            startDate.getText().clear();
+            endDate.getText().clear();
+            startTime.getText().clear();
+            endTime.getText().clear();
             locationText.getText().clear();
             descText.getText().clear();
 
