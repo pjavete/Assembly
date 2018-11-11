@@ -14,7 +14,6 @@ public class opening extends AppCompatActivity {
         setContentView(R.layout.activity_opening);
         login_redirect();
         signup_redirect();
-        test_redirect();
     }
 
     private Button login;
@@ -42,24 +41,4 @@ public class opening extends AppCompatActivity {
             }
         });
     }
-
-    private Button test;
-    public void test_redirect (){
-        test = (Button)findViewById(R.id.test);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                Intent test_redirect = new Intent(opening.this, teststore.class);
-                startActivity(test_redirect);
-            }
-        });
-    }
-
-
-
-
-
-
-
 }
