@@ -33,6 +33,14 @@ public class login extends AppCompatActivity {
         checkLogin();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
 
     public void checkLogin(){
         verifylogin = (Button)findViewById(R.id.verifylogin);
