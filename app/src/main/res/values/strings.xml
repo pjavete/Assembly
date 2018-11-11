@@ -33,4 +33,10 @@
     <string name="thursday">Thur</string>
     <string name="friday">Fri</string>
     <string name="saturday">Sat</string>
+    <string name="events">Events</string>
+    <string name="my_events">My Events</string>
+    <string name="create">Create</string>
+    <string name="join">Join</string>
+    <string name="event_code">Event Code</string>
+    <string name="copy">Copy</string>
 </resources>
