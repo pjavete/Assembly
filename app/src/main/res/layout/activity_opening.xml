@@ -32,15 +32,4 @@
         android:layout_marginBottom="156dp"
         android:text="Sign Up" />
 
-    <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginBottom="21dp"
-        android:text="test" />
 </android.widget.RelativeLayout>
