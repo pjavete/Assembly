@@ -34,14 +34,6 @@ public class signup extends AppCompatActivity {
         AddUser();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-
     public void AddUser(){
         signup = (Button)findViewById(R.id.signup);
         signup.setOnClickListener(new View.OnClickListener() {
