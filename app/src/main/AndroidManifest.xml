@@ -27,6 +27,12 @@
         <activity android:name=".login" />
         <activity android:name=".signup" />
         <activity android:name=".mySchedule"/>
+        <activity android:name=".createEvents" />
+        <activity android:name=".myEvents" />
+        <activity android:name=".joinEvents" />
+        <activity android:name=".codeGenerator"/>
+        <activity android:name=".Events" />
+        <activity android:name=".homePage" />
     </application>
 
 </manifest>
