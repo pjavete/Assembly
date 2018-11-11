@@ -16,8 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Created"></activity>
-        <activity android:name=".Joined"></activity>
+        <activity android:name=".Created" />
+        <activity android:name=".Joined" />
+        <activity android:name=".Landing" />
+        <activity android:name=".MainPage"></activity>
     </application>
 
 </manifest>
