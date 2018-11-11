@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Assembly</string>
+    <string-array name="eventChoices">
+        <item>Created</item>
+        <item>Joined</item>
+        <item>Past Events</item>
+    </string-array>
 </resources>
