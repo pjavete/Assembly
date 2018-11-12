@@ -15,6 +15,7 @@
         app:srcCompat="@drawable/images" />
 
     <Button
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -23,6 +24,7 @@
         android:textColor="#cccccc" />
 
     <Button
+        android:id="@+id/signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

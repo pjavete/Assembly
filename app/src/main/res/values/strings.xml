@@ -39,4 +39,6 @@
     <string name="join">Join</string>
     <string name="event_code">Event Code</string>
     <string name="copy">Copy</string>
+    <string name="Open">Open navigation drawer</string>
+    <string name="Close">Close navigation drawer</string>
 </resources>
