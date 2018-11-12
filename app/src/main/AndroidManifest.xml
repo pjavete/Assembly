@@ -28,11 +28,13 @@
         <activity android:name=".signup" />
         <activity android:name=".mySchedule"/>
         <activity android:name=".createEvents" />
-        <activity android:name=".myEvents" />
         <activity android:name=".joinEvents" />
         <activity android:name=".codeGenerator"/>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".Events" />
-        <activity android:name=".homePage" />
+        <activity android:name=".MainPage" />
+        <activity android:name=".Created" />
+        <activity android:name=".Joined" />
     </application>
 
 </manifest>

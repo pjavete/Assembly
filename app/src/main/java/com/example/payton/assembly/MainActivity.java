@@ -9,7 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.content.Intent;
 
-public class homePage extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
@@ -34,11 +35,13 @@ public class homePage extends AppCompatActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.created:
-                        Intent intent = new Intent(this, Created.class);
+                        Intent intent = new Intent(MainActivity.this, Created.class);
                         startActivity(intent);
                         return true;
                     case R.id.joined:
-
+                        Intent intent2 = new Intent(MainActivity.this, Joined.class);
+                        startActivity(intent2);
+                        return true;
 
                     default:
                         return true;
