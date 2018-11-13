@@ -14,6 +14,7 @@
         android:layout_marginBottom="500dp"
         android:gravity="center"
         android:text="Created Events"
+        android:textColor="@color/colorAccent"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
