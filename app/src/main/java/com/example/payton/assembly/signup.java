@@ -1,52 +1,75 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class signup extends AppCompatActivity {
 
-    database peopleDB;
-    EditText username2, password2;
-    Button verifylogin2;
+    private FirebaseAuth mAuth;
+    EditText email2, password2;
+    Button signup;
+    String TAG = "Signup";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        peopleDB = new database(this);
-        username2 = (EditText)findViewById(R.id.username2);
+        mAuth = FirebaseAuth.getInstance();
+        email2 = (EditText)findViewById(R.id.email2);
         password2 = (EditText)findViewById(R.id.password2);
-        AddData();
+
+        AddUser();
     }
 
-    public void AddData(){
-        verifylogin2 = (Button)findViewById(R.id.verifylogin2);
-        verifylogin2.setOnClickListener(new View.OnClickListener() {
+    public void AddUser(){
+        signup = (Button)findViewById(R.id.signup);
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = username2.getText().toString();
-                String password = password2.getText().toString();
+                mAuth.createUserWithEmailAndPassword(email2.getText().toString(), password2.getText().toString())
+                        .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "createUserWithEmail:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    updateUI(user);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(signup.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    updateUI(null);
+                                }
 
-                boolean check = peopleDB.addData(username,password);
-                //unique username already exists then it returns false
-                if(check==false) {
-                    Toast.makeText(signup.this, "Username already exists. Please pick another one.", Toast.LENGTH_LONG).show();
-                    username2.getText().clear();
-                    password2.getText().clear();
-                    AddData();
-                }else{
-                    finish();
-                    Intent signup = new Intent(signup.this, login.class);
-                    startActivity(signup);
-                }
+                                // ...
+                            }
+                        });
             }
         });
     }
 
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            finish();
+            Intent homepage_redirect = new Intent(signup.this, MainPage.class);
+            startActivity(homepage_redirect);
+        } else {
 
+        }
+    }
 }
