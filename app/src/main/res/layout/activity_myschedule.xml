@@ -11,112 +11,98 @@
         android:id="@+id/tuesday3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
         android:text="Friday"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/wednesday3"
-        app:layout_constraintEnd_toStartOf="@+id/fridaystart"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thursday" />
 
     <Spinner
         android:id="@+id/fridaystart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintEnd_toStartOf="@+id/fridayend"
-        app:layout_constraintStart_toEndOf="@+id/tuesday3"
-        app:layout_constraintTop_toBottomOf="@+id/thurstart" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tuesday3" />
 
     <Spinner
         android:id="@+id/fridayend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/fridaysave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/fridaystart"
-        app:layout_constraintTop_toTopOf="@+id/fridaystart" />
+        app:layout_constraintTop_toBottomOf="@+id/tuesday3" />
 
     <Button
         android:id="@+id/fridaysave"
-        android:layout_width="0dp"
+        android:layout_width="61sp"
         android:layout_height="38sp"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
-        app:layout_constraintBottom_toBottomOf="@+id/saturdaysave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fridayend"
-        app:layout_constraintTop_toTopOf="@+id/thursend" />
+        app:layout_constraintTop_toBottomOf="@+id/thursave" />
 
     <TextView
         android:id="@+id/wednesday3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
         android:text="Saturday"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/saturdaystart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/saturdaystart" />
+        app:layout_constraintTop_toBottomOf="@+id/tuesday3" />
 
     <Spinner
         android:id="@+id/saturdaystart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintEnd_toStartOf="@+id/saturdayend"
-        app:layout_constraintStart_toEndOf="@+id/wednesday3"
-        app:layout_constraintTop_toBottomOf="@+id/fridaystart" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wednesday3" />
 
     <Spinner
         android:id="@+id/saturdayend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/saturdaysave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/saturdaystart"
-        app:layout_constraintTop_toBottomOf="@+id/fridayend" />
+        app:layout_constraintTop_toBottomOf="@+id/wednesday3" />
 
     <Button
         android:id="@+id/saturdaysave"
-        android:layout_width="0dp"
+        android:layout_width="61sp"
         android:layout_height="38sp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/saturdayend"
-        app:layout_constraintTop_toBottomOf="@+id/fridayend" />
+        app:layout_constraintTop_toBottomOf="@+id/fridaysave" />
 
     <TextView
         android:id="@+id/thursday2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginRight="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
         android:text="Sunday"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/sundaystart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wednesday3" />
 
@@ -124,49 +110,42 @@
         android:id="@+id/sundaystart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/sundayend"
-        app:layout_constraintEnd_toStartOf="@+id/sundayend"
-        app:layout_constraintStart_toEndOf="@+id/thursday2" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thursday2" />
 
     <Spinner
         android:id="@+id/sundayend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/sundaysave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/sundaystart"
-        app:layout_constraintTop_toBottomOf="@+id/saturdayend" />
+        app:layout_constraintTop_toBottomOf="@+id/thursday2" />
 
     <Button
         android:id="@+id/sundaysave"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
+        android:layout_width="61sp"
+        android:layout_height="38sp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
-        app:layout_constraintBottom_toBottomOf="@+id/sundayend"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sundayend"
         app:layout_constraintTop_toBottomOf="@+id/saturdaysave" />
 
     <TextView
         android:id="@+id/thursday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
         android:text="Thursday"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/thurstart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wednesday" />
 
@@ -174,135 +153,116 @@
         android:id="@+id/thurstart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintEnd_toStartOf="@+id/thursend"
-        app:layout_constraintStart_toEndOf="@+id/thursday"
-        app:layout_constraintTop_toBottomOf="@+id/wedstart" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thursday" />
 
     <Spinner
         android:id="@+id/thursend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/thursave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/thurstart"
-        app:layout_constraintTop_toBottomOf="@+id/wedend" />
+        app:layout_constraintTop_toBottomOf="@+id/thursday" />
 
     <Button
         android:id="@+id/thursave"
-        android:layout_width="0dp"
+        android:layout_width="61sp"
         android:layout_height="38sp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
-        app:layout_constraintBottom_toBottomOf="@+id/saturdaysave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/thursend"
-        app:layout_constraintTop_toBottomOf="@+id/mondaysave" />
+        app:layout_constraintTop_toBottomOf="@+id/wedsave" />
 
     <TextView
         android:id="@+id/wednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
         android:text="Wednesday"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/wedstart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tuesday" />
 
     <Button
         android:id="@+id/wedsave"
-        android:layout_width="0dp"
+        android:layout_width="61sp"
         android:layout_height="38sp"
-        android:layout_marginTop="71dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
-        app:layout_constraintBottom_toTopOf="@+id/fridaysave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/wedend"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tuessave" />
 
     <Spinner
         android:id="@+id/wedend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/wedsave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/wedstart"
-        app:layout_constraintTop_toTopOf="@+id/wedstart" />
+        app:layout_constraintTop_toBottomOf="@+id/wednesday" />
 
     <Spinner
         android:id="@+id/wedstart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintBottom_toBottomOf="@+id/wednesday"
-        app:layout_constraintEnd_toStartOf="@+id/wedend"
-        app:layout_constraintStart_toEndOf="@+id/wednesday" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wednesday" />
 
     <Button
         android:id="@+id/tuessave"
-        android:layout_width="0dp"
+        android:layout_width="61sp"
         android:layout_height="38sp"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
-        app:layout_constraintBottom_toTopOf="@+id/wedsave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tuesend"
-        app:layout_constraintTop_toBottomOf="@+id/monend" />
+        app:layout_constraintTop_toBottomOf="@+id/mondaysave" />
 
     <Spinner
         android:id="@+id/tuesend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/tuessave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/tuesstart"
-        app:layout_constraintTop_toBottomOf="@+id/monend" />
+        app:layout_constraintTop_toBottomOf="@+id/tuesday" />
 
     <Spinner
         android:id="@+id/tuesstart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintEnd_toStartOf="@+id/tuesend"
-        app:layout_constraintStart_toEndOf="@+id/tuesday"
-        app:layout_constraintTop_toBottomOf="@+id/monstart" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tuesday" />
 
     <TextView
         android:id="@+id/tuesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="32dp"
         android:text="Tuesday"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/tuesstart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -310,50 +270,42 @@
         android:id="@+id/monend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/mondaysave"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/monstart"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/monstart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintEnd_toStartOf="@+id/monend"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/mondaysave"
-        android:layout_width="0dp"
+        android:layout_width="61sp"
         android:layout_height="38sp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Ok"
-        app:layout_constraintBottom_toBottomOf="@+id/tuessave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/monend"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
         android:text="Monday"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/monstart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -361,10 +313,13 @@
         android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="64dp"
         android:text="Done"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/sundayend" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
