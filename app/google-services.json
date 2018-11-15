@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "683908665249",
+    "firebase_url": "https://assembly-20653.firebaseio.com",
+    "project_id": "assembly-20653",
+    "storage_bucket": "assembly-20653.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683908665249:android:2a21a8e262cbadf0",
+        "android_client_info": {
+          "package_name": "com.example.payton.assembly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683908665249-g2l2ms75qvuki6mdr76jqcdgpbqo8ogv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.payton.assembly",
+            "certificate_hash": "ea3132cc0dd86cd08ec8b43c6841461096c6d559"
+          }
+        },
+        {
+          "client_id": "683908665249-51ctf5fg9jj2sf3c97pftpbooqo3vgo9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdxz5gnuVYYBz7D2jJZD1J2Uw5Q46DyFc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683908665249-51ctf5fg9jj2sf3c97pftpbooqo3vgo9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
