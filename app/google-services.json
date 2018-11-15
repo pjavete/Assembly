@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "683908665249-suecoiivhrpm9jrbk3urn3adogvfkoj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.payton.assembly",
+            "certificate_hash": "1b48678ed78445bec41eeefa3dd140f92955b255"
+          }
+        },
+        {
           "client_id": "683908665249-51ctf5fg9jj2sf3c97pftpbooqo3vgo9.apps.googleusercontent.com",
           "client_type": 3
         }

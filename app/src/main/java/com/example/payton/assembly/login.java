@@ -1,70 +1,82 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class login extends AppCompatActivity {
 
-
-    database peopleDB;
-    EditText username, password;
+    EditText email, password;
     Button verifylogin;
+    private FirebaseAuth mAuth;
+    String TAG = "Login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        peopleDB = new database(this);
-        username = (EditText)findViewById(R.id.username);
+        email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
+        mAuth = FirebaseAuth.getInstance();
         checkLogin();
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+    
     public void checkLogin(){
         verifylogin = (Button)findViewById(R.id.verifylogin);
         verifylogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        .addOnCompleteListener(login.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    updateUI(user);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(login.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    updateUI(null);
+                                }
 
-                //if text fields are empty the application crashes this doesnt fix it??
-                if(username.getText()==null || password.getText()==null){
-                    Toast.makeText(login.this, "Text fields are empty.", Toast.LENGTH_LONG).show();
-                    checkLogin();
-                }
-
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-
-
-                boolean checkUsername = peopleDB.checkUsername(user);
-                boolean checkPassword = peopleDB.checkPassword(user,pass);
-
-                //unique username already exists then it returns false
-                //does not check strings properly and crashes when you enter a string although the strings are saved in the db???
-                //checking for integers works fine
-                if(checkUsername==true) {
-                    Toast.makeText(login.this, "Username doesn't exist.", Toast.LENGTH_LONG).show();
-                    username.getText().clear();
-                    password.getText().clear();
-                    checkLogin();
-                }else{
-                    Toast.makeText(login.this, "Username does exist.", Toast.LENGTH_LONG).show();
-                    if(checkPassword==false){
-                        Toast.makeText(login.this, "Password incorrect.", Toast.LENGTH_LONG).show();
-                        password.getText().clear();
-                        checkLogin();
-                    }else{
-                        Toast.makeText(login.this, "You may pass.", Toast.LENGTH_LONG).show();
-                    }
-
-                }
+                                // ...
+                            }
+                        });
             }
         });
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            finish();
+            Intent homepage_redirect = new Intent(login.this, MainPage.class);
+            startActivity(homepage_redirect);
+        } else {
+
+        }
     }
 }

@@ -19,6 +19,7 @@ public class Events extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
 
+
         //Enter info button
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +40,7 @@ public class Events extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Events.this, myEvents.class));
+                startActivity(new Intent(Events.this, MainActivity.class));
             }
         });
     }

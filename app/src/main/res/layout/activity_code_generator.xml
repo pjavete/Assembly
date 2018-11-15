@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ImageView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="40dp">
+    android:gravity="center_vertical|center_horizontal"
+    tools:context=".codeGenerator">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:srcCompat="@drawable/images" />
-
-    <Button
-        android:id="@+id/login"
+    <TextView
+        android:id="@+id/eventCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@color/colorAccent"
-        android:text="Log In"
-        android:textColor="@android:color/white" />
+        android:gravity="center"
+        android:text="@string/event_code"
+        android:textSize="24sp" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/copyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:background="@color/colorAccent"
-        android:text="Sign Up"
+        android:gravity="center"
+        android:onClick="copyCode"
+        android:text="@string/copy"
         android:textColor="@android:color/white" />
-
-
-
-
 </LinearLayout>

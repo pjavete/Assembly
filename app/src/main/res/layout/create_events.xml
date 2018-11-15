@@ -1,91 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".createEvents">
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/eventView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Event"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/eventText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/titleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Create"
-            android:textSize="32sp" />
-
-        <TextView
-            android:id="@+id/eventView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Event"
-            android:textSize="24sp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/eventText"
-            android:layout_width="match_parent"
+            android:id="@+id/startDate"
+            android:layout_width="187dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/timeView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Times"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Date"
+            android:hint="Start Date"
             android:inputType="date" />
 
         <EditText
-            android:id="@+id/editText5"
-            android:layout_width="match_parent"
+            android:id="@+id/endDate"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="End Date"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/timeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/startTime"
+            android:layout_width="187dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Time"
+            android:hint="Start Time"
             android:inputType="time" />
 
-        <TextView
-            android:id="@+id/locationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="24sp" />
-
         <EditText
-            android:id="@+id/locationText"
+            android:id="@+id/endTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPostalAddress" />
-
-        <TextView
-            android:id="@+id/descView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/descText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textAutoCorrect|textMultiLine" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
-
+            android:hint="End Time"
+            android:inputType="time" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/locationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/locationText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress" />
+
+    <TextView
+        android:id="@+id/descView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/descText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textAutoCorrect|textMultiLine" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="submit"
+        android:text="Submit" />
+
+
+</LinearLayout>
