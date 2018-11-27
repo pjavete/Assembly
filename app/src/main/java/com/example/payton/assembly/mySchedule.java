@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class mySchedule extends AppCompatActivity {
 
@@ -29,14 +27,11 @@ public class mySchedule extends AppCompatActivity {
     Spinner sundaystart;
     Spinner sundayend;
 
-    public DatabaseReference database;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myschedule);
 
-        database = FirebaseDatabase.getInstance().getReference("users").child("CU74uVyU2eNP87jdVvQY");
 
         //this creates the spinner arrays
         setgetmonstart();
