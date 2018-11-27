@@ -8,12 +8,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class createEvents extends AppCompatActivity {
-    private static final String FILE_NAME = "photos.txt";
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+
     EditText eventText;
     EditText startTime;
     EditText endTime;
@@ -22,11 +31,18 @@ public class createEvents extends AppCompatActivity {
     EditText locationText;
     EditText descText;
     Button submit;
+    createEvents newEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+
+
         eventText = findViewById(R.id.eventText);
         startTime = findViewById(R.id.startTime);
         endTime = findViewById(R.id.endTime);
@@ -37,28 +53,49 @@ public class createEvents extends AppCompatActivity {
         submit = findViewById(R.id.submitButton);
     }
 
+    //this is a super dumb question but i forgot how to create objects LOL
+    //need to make sure to store the event code
+    public createEvents(String title, String startDate, String endDate, String startTime, String endTime, String location, String description, String eventCode) {
+        String event_title = title;
+        String start_date = startDate;
+        String end_date = endDate;
+        String start_time = startTime;
+        String end_time = endTime;
+        String event_location = location;
+        String event_description = description;
+        String event_code = eventCode;
+    }
+
+
+    protected boolean hasErrors(String title, String startDate, String endDate, String startTime, String endTime, String location, String description) {
+        if (title.equals("") || startDate.equals("") || endDate.equals("") || startTime.equals("") || endTime.equals("") || location.equals("") || description.equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void submit(View view) {
-        String eventTitle = eventText.getText().toString() + "\n";
-        String sDate = startDate.getText().toString() + "\n";
-        String eDate = endDate.getText().toString() + "\n";
-        String sTime = startTime.getText().toString() + "\n";
-        String eTime = endTime.getText().toString() + "\n";
-        String location = locationText.getText().toString()  + "\n";
-        String description = descText.getText().toString() + "\n";
+        String eventTitle = eventText.getText().toString();
+        String sDate = startDate.getText().toString();
+        String eDate = endDate.getText().toString();
+        String sTime = startTime.getText().toString();
+        String eTime = endTime.getText().toString();
+        String location = locationText.getText().toString();
+        String description = descText.getText().toString();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid();
+        Intent intent = getIntent();
+        String code = intent.getStringExtra("eventCode");
 
-
-        FileOutputStream stream = null;
-
-        try {
-            stream = openFileOutput(FILE_NAME, MODE_APPEND);
-            stream.write(eventTitle.getBytes());
-            stream.write(sDate.getBytes());
-            stream.write(eDate.getBytes());
-            stream.write(sTime.getBytes());
-            stream.write(eTime.getBytes());
-            stream.write(location.getBytes());
-            stream.write(description.getBytes());
-
+        if (hasErrors(eventTitle, sDate, eDate, sTime, eTime, location, description)) {
+            Toast.makeText(this, "Error. Enter text in all fields.", Toast.LENGTH_LONG).show();
+            finish();
+        } else {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("Assembly");
+            newEvent = new createEvents(eventTitle, sDate, eDate, sTime, eTime, location, description, code);
+            myRef.child("Users").child(userID).child("Events").push().setValue(newEvent);
 
             eventText.getText().clear();
             startDate.getText().clear();
@@ -67,22 +104,8 @@ public class createEvents extends AppCompatActivity {
             endTime.getText().clear();
             locationText.getText().clear();
             descText.getText().clear();
-
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.flush();
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            startActivity(new Intent(createEvents.this, codeGenerator.class));
         }
-        startActivity(new Intent(createEvents.this, codeGenerator.class));
     }
 }

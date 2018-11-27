@@ -28,6 +28,9 @@ public class codeGenerator extends AppCompatActivity {
         SecureRandom random = new SecureRandom();
         randomCode = new BigInteger(30, random).toString(32).toUpperCase();
         eventCode.setText(randomCode);
+        Intent intent = new Intent(codeGenerator.this, createEvents.class);
+        intent.putExtra("eventCode", randomCode);
+        startActivity(intent);
     }
 
     public void copyCode(View view){
