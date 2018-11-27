@@ -17,14 +17,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Kevin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:text="pjavete@ucsc.edu"
         android:textColor="@color/colorAccent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="kjraja@ucsc.edu"
-        android:textColor="@color/colorAccent"/>
 </LinearLayout>

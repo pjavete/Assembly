@@ -15,10 +15,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class signup extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference db;
     EditText email2, password2;
     Button signup;
     String TAG = "Signup";
@@ -28,6 +33,7 @@ public class signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
         email2 = (EditText)findViewById(R.id.email2);
         password2 = (EditText)findViewById(R.id.password2);
 
@@ -65,6 +71,11 @@ public class signup extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+            //HashMap<String, Object> user_data = new HashMap<>();
+            //user_data.put("Admin", false);
+            //user_data.put("Email", user.getEmail());
+            String UID = user.getUid();
+            db.child("Users").setValue(UID);
             finish();
             Intent homepage_redirect = new Intent(signup.this, MainPage.class);
             startActivity(homepage_redirect);
