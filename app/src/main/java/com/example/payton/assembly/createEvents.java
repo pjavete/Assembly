@@ -26,8 +26,9 @@ import java.util.Map;
 public class createEvents extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    String eventid;
+    Intent passcode;
     String TAG = "newEvent";
-
     EditText eventText;
     EditText startTime;
     EditText endTime;
@@ -54,6 +55,7 @@ public class createEvents extends AppCompatActivity {
         submit = findViewById(R.id.submitButton);
     }
 
+    //tests to make sure all fields have something filled out (no empty)
     protected boolean hasErrors(String title, String startDate, String endDate, String startTime, String endTime, String location, String description) {
         if (title.equals("") || startDate.equals("") || endDate.equals("") || startTime.equals("") || endTime.equals("") || location.equals("") || description.equals("")) {
             return true;
@@ -63,6 +65,7 @@ public class createEvents extends AppCompatActivity {
     }
 
     public void submit(View view) {
+        //get text from each field
         String eventTitle = eventText.getText().toString();
         String sDate = startDate.getText().toString();
         String eDate = endDate.getText().toString();
@@ -71,10 +74,10 @@ public class createEvents extends AppCompatActivity {
         String location = locationText.getText().toString();
         String description = descText.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
-        //String userID = user.getUid();
+        String userID = user.getUid();
         Intent intent = getIntent();
-        String code = intent.getStringExtra("eventCode");
 
+        //if error, show error toast
         if (hasErrors(eventTitle, sDate, eDate, sTime, eTime, location, description)) {
             Toast.makeText(this, "Error. Enter text in all fields.", Toast.LENGTH_LONG).show();
         } else {
@@ -88,23 +91,41 @@ public class createEvents extends AppCompatActivity {
             eventData.put("End Time", eTime);
             eventData.put("Location", location);
             eventData.put("Description", description);
-            eventData.put("Event Code", code);
 
-            // Add a new document with a generated ID
-            db.collection("events")
-                    .add(eventData)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            // Add a new document into the events collection
+            eventid = db.collection("users").document().getId();
+            db.collection("events").document(eventid)
+                    .set(eventData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully written!");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error adding document", e);
+                            Log.w(TAG, "Error writing document", e);
                         }
                     });
+
+            //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
+            db.collection("users").document(user.getUid()).collection("createdEvents").document(eventid)
+                    .set(eventData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error writing document", e);
+                        }
+                    });
+
+            //clear all fields
             eventText.getText().clear();
             startDate.getText().clear();
             endDate.getText().clear();
@@ -114,7 +135,10 @@ public class createEvents extends AppCompatActivity {
             descText.getText().clear();
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
             finish();
-            startActivity(new Intent(createEvents.this, codeGenerator.class));
+            //pass the new event's id to code generator
+            passcode = new Intent(createEvents.this, codeGenerator.class);
+            passcode.putExtra("eventCode", eventid);
+            startActivity(passcode);
         }
     }
 }
