@@ -38,6 +38,7 @@ public class codeGenerator extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("event code",randomCode);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(codeGenerator.this, Events.class));
+        finish();
+        onBackPressed();
     }
 }

@@ -20,7 +20,10 @@
         android:id="@+id/copyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="Copy"
-        android:onClick="copyCode"/>
+        android:onClick="copyCode"
+        android:text="@string/copy"
+        android:textColor="@android:color/white" />
+
 </LinearLayout>

@@ -2,26 +2,31 @@ package com.example.payton.assembly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class createEvents extends AppCompatActivity {
-    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference myRef;
+    private FirebaseFirestore db;
+    String TAG = "newEvent";
 
     EditText eventText;
     EditText startTime;
@@ -31,7 +36,6 @@ public class createEvents extends AppCompatActivity {
     EditText locationText;
     EditText descText;
     Button submit;
-    createEvents newEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +43,6 @@ public class createEvents extends AppCompatActivity {
         setContentView(R.layout.create_events);
 
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
-
 
         eventText = findViewById(R.id.eventText);
         startTime = findViewById(R.id.startTime);
@@ -52,20 +53,6 @@ public class createEvents extends AppCompatActivity {
         descText = findViewById(R.id.descText);
         submit = findViewById(R.id.submitButton);
     }
-
-    //this is a super dumb question but i forgot how to create objects LOL
-    //need to make sure to store the event code
-    public createEvents(String title, String startDate, String endDate, String startTime, String endTime, String location, String description, String eventCode) {
-        String event_title = title;
-        String start_date = startDate;
-        String end_date = endDate;
-        String start_time = startTime;
-        String end_time = endTime;
-        String event_location = location;
-        String event_description = description;
-        String event_code = eventCode;
-    }
-
 
     protected boolean hasErrors(String title, String startDate, String endDate, String startTime, String endTime, String location, String description) {
         if (title.equals("") || startDate.equals("") || endDate.equals("") || startTime.equals("") || endTime.equals("") || location.equals("") || description.equals("")) {
@@ -84,19 +71,40 @@ public class createEvents extends AppCompatActivity {
         String location = locationText.getText().toString();
         String description = descText.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
-        String userID = user.getUid();
+        //String userID = user.getUid();
         Intent intent = getIntent();
         String code = intent.getStringExtra("eventCode");
 
         if (hasErrors(eventTitle, sDate, eDate, sTime, eTime, location, description)) {
             Toast.makeText(this, "Error. Enter text in all fields.", Toast.LENGTH_LONG).show();
-            finish();
         } else {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("Assembly");
-            newEvent = new createEvents(eventTitle, sDate, eDate, sTime, eTime, location, description, code);
-            myRef.child("Users").child(userID).child("Events").push().setValue(newEvent);
+            db = FirebaseFirestore.getInstance();
 
+            Map<String, Object> eventData = new HashMap<>();
+            eventData.put("Event Name", eventTitle);
+            eventData.put("Start Date", sDate);
+            eventData.put("End Date", eDate);
+            eventData.put("Start Time", sTime);
+            eventData.put("End Time", eTime);
+            eventData.put("Location", location);
+            eventData.put("Description", description);
+            eventData.put("Event Code", code);
+
+            // Add a new document with a generated ID
+            db.collection("events")
+                    .add(eventData)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
             eventText.getText().clear();
             startDate.getText().clear();
             endDate.getText().clear();
@@ -105,6 +113,7 @@ public class createEvents extends AppCompatActivity {
             locationText.getText().clear();
             descText.getText().clear();
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+            finish();
             startActivity(new Intent(createEvents.this, codeGenerator.class));
         }
     }
