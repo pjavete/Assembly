@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,57 +41,59 @@ public class joinEvents extends AppCompatActivity{
 
 
     public void joinEvent(View view){
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid();
-        String codeEvent = codeText.getText().toString();
+        final String codeEvent = codeText.getText().toString();
         db = FirebaseFirestore.getInstance();
 
         Task<DocumentSnapshot> eventID = db.collection("users").document(user.getUid()).collection("createdEvents").document(codeEvent).get();
-        eventID.addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            public void onSuccess(DocumentSnapshot snapshot) {
-                found = true;
-            }
-        });
-        eventID.addOnFailureListener(new OnFailureListener() {
+        eventID.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                found = false;
-            }
-        });
-        if(found == true){
-            Toast.makeText(this, "Error. Event owner cannot join own event.", Toast.LENGTH_LONG).show();
-            codeText.getText().clear();
-        }else {
-            Task<DocumentSnapshot> task = db.document("events").get();
-            task.addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                public void onSuccess(DocumentSnapshot snapshot) {
-                   eventData = snapshot.getData();
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult().getData() != null) {
+                    found = true;
+                } else {
+                    found = false;
                 }
-            });
-            task.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error getting document", e);
-                }
-            });
-
-            db.collection("users").document(user.getUid()).collection("joinedEvents").document(codeEvent)
-                    .set(eventData)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                if(found == true){
+                    //Toast.makeText(this, "Error. Event owner cannot join own event.", Toast.LENGTH_LONG).show();
+                    codeText.getText().clear();
+                }else {
+                    Task<DocumentSnapshot> eventTask = db.collection("events").document(codeEvent).get();
+                    eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully written!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writing document", e);
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot snapshot = task.getResult();
+                                eventData = snapshot.getData();
+                                db.collection("users").document(user.getUid()).collection("joinedEvents").document(codeEvent)
+                                        .set(eventData)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error writing document", e);
+                                            }
+                                        });
+                            } else {
+                                Log.d(TAG, "Error getting document.", task.getException());
+                            }
                         }
                     });
-            Toast.makeText(this, "Joined", Toast.LENGTH_LONG).show();
-            finish();
-            onBackPressed();
-        }
+
+
+                    //Toast.makeText(this, "Joined", Toast.LENGTH_LONG).show();
+                    finish();
+                    onBackPressed();
+                }
+            }
+        });
+
+
     }
 }
