@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/gohome"
         android:icon="@drawable/ic_portrait_black_24dp"
-        android:title="HOME"/>
+        android:title="Home"/>
     <item android:id="@+id/events"
         android:icon="@drawable/ic_brightness_high_black_24dp"
         android:title="Events"/>
@@ -11,7 +11,7 @@
         android:title="Schedule"/>
     <item android:id="@+id/account"
         android:icon="@drawable/ic_brightness_high_black_24dp"
-        android:title="My Acount"/>
+        android:title="My Account"/>
 
 
 </menu>
