@@ -15,8 +15,8 @@
         />
 
     <TextView
+        android:id="@+id/UserEmailHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pjavete@ucsc.edu"
         android:textColor="@color/colorAccent" />
 </LinearLayout>
