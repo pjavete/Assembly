@@ -11,13 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-
 public class codeGenerator extends AppCompatActivity {
+    //variables to be used through different
     Button copyButton;
     TextView eventCode;
     String code;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
