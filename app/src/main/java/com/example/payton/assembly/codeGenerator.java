@@ -40,5 +40,6 @@ public class codeGenerator extends AppCompatActivity {
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
         finish();
         onBackPressed();
+        //:(((
     }
 }
