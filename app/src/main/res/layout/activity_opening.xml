@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="384dp"
-        android:layout_height="253dp"
+        android:layout_width="622dp"
+        android:layout_height="285dp"
         app:srcCompat="@drawable/icon" />
 
     <Button
