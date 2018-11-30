@@ -39,14 +39,14 @@ public class CreatedDetailFragment extends Fragment {
         tvDetails = (TextView) view.findViewById(R.id.tvDetails);
 
         // update view
-        tvTitle.setText(EventStrings.events[position]);
-        tvDetails.setText(EventStrings.eventDetails[position]);
+        tvTitle.setText(EventStrings.createdEventTitles[position]);
+        tvDetails.setText(EventStrings.createdEventDetails[position]);
     }
 
     // Activity is calling this to update view on Fragment
     public void updateView(int position){
-        tvTitle.setText(EventStrings.events[position]);
-        tvDetails.setText(EventStrings.eventDetails[position]);
+        tvTitle.setText(EventStrings.createdEventTitles[position]);
+        tvDetails.setText(EventStrings.createdEventDetails[position]);
     }
 }
 

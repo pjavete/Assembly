@@ -39,14 +39,14 @@ public class JoinedDetailFragment extends Fragment {
         tvDetails2 = (TextView) view.findViewById(R.id.tvDetails2);
 
         // update view
-        tvTitle2.setText(EventStrings.events2[position]);
-        tvDetails2.setText(EventStrings.eventDetails2[position]);
+        tvTitle2.setText(EventStrings.joinedEventTitles[position]);
+        tvDetails2.setText(EventStrings.joinedEventDetails[position]);
     }
 
     // Activity is calling this to update view on Fragment
     public void updateView(int position){
-        tvTitle2.setText(EventStrings.events2[position]);
-        tvDetails2.setText(EventStrings.eventDetails2[position]);
+        tvTitle2.setText(EventStrings.joinedEventTitles[position]);
+        tvDetails2.setText(EventStrings.joinedEventDetails[position]);
     }
 }
 

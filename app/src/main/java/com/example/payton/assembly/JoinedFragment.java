@@ -21,7 +21,7 @@ public class JoinedFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        itemsAdapter2 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, EventsJoined.events2);
+        itemsAdapter2 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, EventStrings.joinedEventTitles);
     }
 
     @Override

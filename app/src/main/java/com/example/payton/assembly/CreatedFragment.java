@@ -21,7 +21,7 @@ public class CreatedFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        itemsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, EventStrings.events);
+        itemsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, EventStrings.createdEventTitles);
     }
 
     @Override
