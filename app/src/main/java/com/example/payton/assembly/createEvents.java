@@ -1,11 +1,13 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -35,6 +37,8 @@ public class createEvents extends AppCompatActivity {
         locationText = findViewById(R.id.locationText);
         descText = findViewById(R.id.descText);
         submit = findViewById(R.id.submitButton);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        submit.setTypeface(typeface);
     }
 
     public void submit(View view) {

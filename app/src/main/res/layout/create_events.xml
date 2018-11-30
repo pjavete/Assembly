@@ -121,6 +121,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="submit"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
         android:text="Submit" />
 
 
