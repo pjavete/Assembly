@@ -33,7 +33,7 @@ public class Joined extends AppCompatActivity  implements JoinedFragment.OnItemS
     public void onEventItemSelected2(int position) {
 
         // Load Pizza Detail Fragment
-        EventDetailFragment2 secondFragment = new EventDetailFragment2();
+        JoinedDetailFragment secondFragment = new JoinedDetailFragment();
 
         Bundle args = new Bundle();
         args.putInt("position", position);

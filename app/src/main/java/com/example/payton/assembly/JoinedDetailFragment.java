@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class EventDetailFragment2 extends Fragment {
+public class JoinedDetailFragment extends Fragment {
     int position = 0;
     TextView tvTitle2;
     TextView tvDetails2;
@@ -29,7 +29,7 @@ public class EventDetailFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
 
         // Inflate the xml file for the fragment
-        return inflater.inflate(R.layout.activity_event_detail_fragment2, parent, false);
+        return inflater.inflate(R.layout.activity_joined_detail_fragment2, parent, false);
     }
 
     @Override

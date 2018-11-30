@@ -40,7 +40,7 @@ public class Events extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Events.this, MainActivity.class));
+                startActivity(new Intent(Events.this, MyEvents.class));
             }
         });
     }

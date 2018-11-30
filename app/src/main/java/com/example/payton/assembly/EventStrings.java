@@ -4,13 +4,15 @@ public class EventStrings {
     public static String[] events = {
             "Tea with Felecia",
             "Basketball with Charles",
-            "Meeting with Payton"
+            "Meeting with Payton",
+            "test add astring"
     };
 
     public static String[] eventDetails = {
             "Meet at 3:00 on Tuesday for tea with Felicia at FSH 314.",
             "Meeting at courts outside Eastgym at 5:00 on Wednesday.",
-            "Meet to finalize the details on or projects."
+            "Meet to finalize the details on or projects.",
+            "test"
     };
 
     public static String[] events2 = {
