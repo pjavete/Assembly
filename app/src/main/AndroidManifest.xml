@@ -34,9 +34,9 @@
         <activity android:name=".mySchedule" />
         <activity android:name=".MyEvents" />
         <activity android:name=".MainPage" />
-        <activity android:name=".Created" />
         <activity android:name=".Joined" />
-        <activity android:name=".DisplayDB"></activity>
+        <activity android:name=".DisplayDB" />
+        <activity android:name=".JoinedDisplay"></activity>
     </application>
 
 </manifest>

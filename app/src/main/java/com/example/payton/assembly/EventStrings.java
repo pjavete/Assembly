@@ -20,7 +20,7 @@ public class EventStrings {
     private FirebaseFirestore db;
     List<Map<String, Object>> createdEventData = getCreatedEventData();
 
-    public static String[] createdEventTitles = getCreatedEventTitles();
+    //public static String[] createdEventTitles = getCreatedEventTitles();
 
 
     public static String[] createdEventDetails = {

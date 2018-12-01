@@ -1,19 +1,13 @@
 package com.example.payton.assembly;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.util.Log;
 
 
 import java.util.ArrayList;
@@ -22,20 +16,20 @@ import java.util.ArrayList;
 public class ListAdapter extends BaseAdapter {
 
     Context context;
-    private final ArrayList<StringBuffer> IDs;
-    private final ArrayList<StringBuffer> Titles;
+    private final ArrayList<StringBuffer> Names;
+    private final ArrayList<StringBuffer> Desc;
 
-    public ListAdapter(Context context, ArrayList<StringBuffer> IDs, ArrayList<StringBuffer> Titles, ArrayList<StringBuffer> Images){
+    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc){
         //super(context, R.layout.single_list__item, utilsArrayList);
         this.context = context;
-        this.IDs = IDs;
-        this.Titles = Titles;
+        this.Names = Names;
+        this.Desc = Desc;
     }
 
     @Override
     public int getCount() {
 
-        return IDs.size();
+        return Names.size();
     }
 
     @Override
@@ -69,14 +63,14 @@ public class ListAdapter extends BaseAdapter {
         }
 
         viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.aIDtxt);
-        viewHolder.txtName = (TextView) convertView.findViewById(R.id.aNametxt);
+        viewHolder.txtName = (TextView) convertView.findViewById(R.id.Eventname);
 
 
         convertView.setTag(viewHolder);
         //viewHolder.txtVersion.setText("ID: "+IDs);
 
-        viewHolder.txtVersion.setText(IDs.get(position));
-        viewHolder.txtName.setText(Titles.get(position));
+        viewHolder.txtVersion.setText(Names.get(position));
+        viewHolder.txtName.setText(Desc.get(position));
 
 
         return convertView;
