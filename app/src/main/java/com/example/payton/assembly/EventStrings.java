@@ -38,7 +38,7 @@ public class EventStrings {
             "Determine what we want to add to the project. Meet at SandE library at 5 on Thursday."
     };
 
-    public static String[] getCreatedEventTitles() {
+    public String[] getCreatedEventTitles() {
         String[] titles ={};
         int i = 0;
         for(Map<String, Object> event: createdEventData){

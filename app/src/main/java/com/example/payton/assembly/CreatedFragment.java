@@ -22,6 +22,7 @@ public class CreatedFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
+
         itemsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, EventStrings.createdEventTitles);
     }
 
