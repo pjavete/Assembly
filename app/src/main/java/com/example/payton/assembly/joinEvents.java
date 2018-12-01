@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -46,33 +47,35 @@ public class joinEvents extends AppCompatActivity{
         db = FirebaseFirestore.getInstance();
 
         Task<DocumentSnapshot> eventID = db.collection("users").document(user.getUid()).collection("createdEvents").document(codeEvent).get();
-        eventID.addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            public void onSuccess(DocumentSnapshot snapshot) {
-                found = true;
-            }
-        });
-        eventID.addOnFailureListener(new OnFailureListener() {
+        eventID.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                found = false;
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    found = true;
+                } else {
+                    found = false;
+                }
             }
         });
+
         if(found == true){
             Toast.makeText(this, "Error. Event owner cannot join own event.", Toast.LENGTH_LONG).show();
             codeText.getText().clear();
         }else {
-            Task<DocumentSnapshot> task = db.document("events").get();
-            task.addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                public void onSuccess(DocumentSnapshot snapshot) {
-                   eventData = snapshot.getData();
-                }
-            });
-            task.addOnFailureListener(new OnFailureListener() {
+            Task<DocumentSnapshot> task = db.collection("events").document(codeEvent).get();
+            task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error getting document", e);
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot snapshot = task.getResult();
+                        eventData = snapshot.getData();
+                    } else {
+                        Log.d(TAG, "Error getting document.", task.getException());
+                    }
                 }
             });
+
+
 
             db.collection("users").document(user.getUid()).collection("joinedEvents").document(codeEvent)
                     .set(eventData)
