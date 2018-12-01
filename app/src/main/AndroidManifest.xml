@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Events" />
-        <activity android:name=".opening"
+        <activity
+            android:name=".opening"
             android:label="Assembly">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,14 +28,15 @@
         </activity>
         <activity android:name=".createEvents" />
         <activity android:name=".joinEvents" />
-        <activity android:name=".codeGenerator"/>
+        <activity android:name=".codeGenerator" />
         <activity android:name=".login" />
         <activity android:name=".signup" />
-        <activity android:name=".mySchedule"/>
-        <activity android:name=".MyEvents"/>
+        <activity android:name=".mySchedule" />
+        <activity android:name=".MyEvents" />
         <activity android:name=".MainPage" />
         <activity android:name=".Created" />
         <activity android:name=".Joined" />
+        <activity android:name=".DisplayDB"></activity>
     </application>
 
 </manifest>
