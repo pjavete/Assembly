@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/event_code"
+        android:text="Event Code"
         android:textSize="24sp" />
 
     <Button
@@ -25,4 +25,5 @@
         android:onClick="copyCode"
         android:text="@string/copy"
         android:textColor="@android:color/white" />
+
 </LinearLayout>

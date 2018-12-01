@@ -18,7 +18,7 @@ import java.security.SecureRandom;
 public class codeGenerator extends AppCompatActivity {
     Button copyButton;
     TextView eventCode;
-    String randomCode;
+    String code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +28,16 @@ public class codeGenerator extends AppCompatActivity {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
         copyButton.setTypeface(typeface);
 
-        SecureRandom random = new SecureRandom();
-        randomCode = new BigInteger(30, random).toString(32).toUpperCase();
-        eventCode.setText(randomCode);
+        //retrieves the event id and sets it as the eventCode
+        Intent intent = getIntent();
+        code = intent.getStringExtra("eventCode");
+        eventCode.setText(code);
     }
 
     public void copyCode(View view){
+        //copies the event code onto the user's clipboard
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("event code",randomCode);
+        ClipData clip = ClipData.newPlainText("event code", code);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
         finish();
