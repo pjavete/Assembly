@@ -1,6 +1,7 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,8 @@ public class login extends AppCompatActivity {
     
     public void checkLogin(){
         verifylogin = (Button)findViewById(R.id.verifylogin);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        verifylogin.setTypeface(typeface);
         verifylogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

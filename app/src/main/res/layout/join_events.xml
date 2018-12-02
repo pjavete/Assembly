@@ -36,11 +36,11 @@
             android:id="@+id/joinButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
             android:gravity="center"
-            android:onClick="joinEvent"
             android:text="Join"
-            android:textColor="@android:color/white" />
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:onClick="joinEvent"/>
     </LinearLayout>
 
 </LinearLayout>
