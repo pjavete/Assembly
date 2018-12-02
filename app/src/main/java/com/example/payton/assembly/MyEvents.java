@@ -35,11 +35,11 @@ public class MyEvents extends AppCompatActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.created:
-                        Intent intent = new Intent(MyEvents.this, Created.class);
+                        Intent intent = new Intent(MyEvents.this, CreatedDisplay.class);
                         startActivity(intent);
                         return true;
                     case R.id.joined:
-                        Intent intent2 = new Intent(MyEvents.this, Joined.class);
+                        Intent intent2 = new Intent(MyEvents.this, JoinedDisplay.class);
                         startActivity(intent2);
                         return true;
 
