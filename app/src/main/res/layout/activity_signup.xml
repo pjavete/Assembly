@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pastel"
     tools:context=".signup">
 
     <android.support.design.widget.TextInputLayout
@@ -43,6 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="Sign Up"
-        style="@style/Widget.AppCompat.Button.Colored" />
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:text="Sign Up" />
+
 </android.widget.RelativeLayout>

@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/button_background"
         android:text="Log In"
         android:textColor="@android:color/white" />
 
@@ -29,11 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/button_background"
         android:text="Sign Up"
         android:textColor="@android:color/white" />
-
-
-
-
 </LinearLayout>

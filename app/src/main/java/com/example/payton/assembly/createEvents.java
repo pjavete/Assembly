@@ -1,6 +1,7 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +46,11 @@ public class createEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
+
+        TextView tv = (TextView) findViewById(R.id.titleView);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
+        tv.setTypeface(face);
+
         mAuth = FirebaseAuth.getInstance();
 
         //EditText instances
@@ -55,6 +62,7 @@ public class createEvents extends AppCompatActivity {
         locationText = findViewById(R.id.locationText);
         descText = findViewById(R.id.descText);
         submit = findViewById(R.id.submitButton);
+
         startDateLayout = findViewById(R.id.startDateLayout);
         endDateLayout = findViewById(R.id.endDateLayout);
         startTimeLayout = findViewById(R.id.startTimeLayout);
@@ -64,6 +72,9 @@ public class createEvents extends AppCompatActivity {
         endDateLayout.setError("MM/DD/YYYY"); // show error
         startTimeLayout.setError("24 Hour Time"); // show error
         endTimeLayout.setError("24 Hour Time"); // show error
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        submit.setTypeface(typeface);
     }
 
     //tests to make sure all fields have something filled out (no empty)
