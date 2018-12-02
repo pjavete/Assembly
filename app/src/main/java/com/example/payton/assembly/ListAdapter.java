@@ -62,7 +62,7 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.aIDtxt);
+        //viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.aIDtxt);
         viewHolder.txtName = (TextView) convertView.findViewById(R.id.Eventname);
 
 
