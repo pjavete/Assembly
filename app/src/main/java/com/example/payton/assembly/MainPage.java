@@ -41,16 +41,17 @@ public class MainPage extends AppCompatActivity {
                         Intent homepage_redirect = new Intent(MainPage.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
-                    case R.id.events:
-                        Intent myevents_redirect = new Intent(MainPage.this, Events.class);
+                    case R.id.myevents:
+                        Intent myevents_redirect = new Intent(MainPage.this, MyEvents.class);
                         startActivity(myevents_redirect);
                         return true;
-                    case R.id.schedule:
-                        Intent myschedule_redirect = new Intent(MainPage.this, mySchedule.class);
-                        startActivity(myschedule_redirect);
+                    case R.id.createEvent:
+                        Intent createEvent_redirect = new Intent(MainPage.this, createEvents.class);
+                        startActivity(createEvent_redirect);
                         return true;
-                    case R.id.account:
-                        Toast.makeText(MainPage.this, "Goes to account settings",Toast.LENGTH_SHORT).show();
+                    case R.id.joinEvent:
+                        Intent joinEvent_redirect = new Intent(MainPage.this, joinEvents.class);
+                        startActivity(joinEvent_redirect);
                         return true;
                     default:
                         return true;
