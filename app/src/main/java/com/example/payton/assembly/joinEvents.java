@@ -60,12 +60,12 @@ public class joinEvents extends AppCompatActivity{
                     found = false;
                 }
 
-                //usese the check to see if people joined the event to determine what to do next
+                //uses the check to see if people joined the event to determine what to do next
                 if(found == true){
                     toastMaker(0);
                     codeText.getText().clear();
                 }else {
-                    //retrieves the event for hte events collection in the firestore databse
+                    //retrieves the event for the events collection in the firestore database
                     Task<DocumentSnapshot> eventTask = db.collection("events").document(codeEvent).get();
                     eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
