@@ -12,6 +12,10 @@
     <item android:id="@+id/account"
         android:icon="@drawable/ic_brightness_high_black_24dp"
         android:title="My Account"/>
+    <item android:id="@+id/logout"
+        android:icon="@drawable/ic_brightness_high_black_24dp"
+        android:title="Logout"/>
+
 
 
 </menu>

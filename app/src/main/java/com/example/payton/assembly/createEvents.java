@@ -44,6 +44,9 @@ public class createEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
+        TextView tv = (TextView) findViewById(R.id.titleView);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
+        tv.setTypeface(face);
 
         mAuth = FirebaseAuth.getInstance();
 
