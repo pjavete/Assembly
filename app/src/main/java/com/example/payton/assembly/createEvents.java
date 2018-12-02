@@ -3,6 +3,7 @@ package com.example.payton.assembly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,10 @@ public class createEvents extends AppCompatActivity {
     EditText locationText;
     EditText descText;
     Button submit;
+    TextInputLayout startDateLayout;
+    TextInputLayout endDateLayout;
+    TextInputLayout startTimeLayout;
+    TextInputLayout endTimeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,15 @@ public class createEvents extends AppCompatActivity {
         locationText = findViewById(R.id.locationText);
         descText = findViewById(R.id.descText);
         submit = findViewById(R.id.submitButton);
+        startDateLayout = findViewById(R.id.startDateLayout);
+        endDateLayout = findViewById(R.id.endDateLayout);
+        startTimeLayout = findViewById(R.id.startTimeLayout);
+        endTimeLayout = findViewById(R.id.endTimeLayout);
+
+        startDateLayout.setError("MM/DD/YYYY"); // show error
+        endDateLayout.setError("MM/DD/YYYY"); // show error
+        startTimeLayout.setError("24 Hour Time"); // show error
+        endTimeLayout.setError("24 Hour Time"); // show error
     }
 
     //tests to make sure all fields have something filled out (no empty)
