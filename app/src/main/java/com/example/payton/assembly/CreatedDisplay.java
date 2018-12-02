@@ -33,7 +33,8 @@ public class CreatedDisplay extends AppCompatActivity {
     String TAG = "eventstrings";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private List<String> titles = new ArrayList<>();
+    private ArrayList<StringBuffer> titles = new ArrayList<>();
+    private ArrayList<StringBuffer> description = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +52,19 @@ public class CreatedDisplay extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
                 titles.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
-                    titles.add(snapshot.getString("Event Name"));
+                    StringBuffer titleBuffer = new StringBuffer();
+                    StringBuffer descriptionBuffer = new StringBuffer();
+                    titleBuffer.append(snapshot.getString("Event Name"));
+                    descriptionBuffer.append(snapshot.getString("Description"));
+
+                    titles.add(titleBuffer);
+                    description.add(descriptionBuffer);
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
-                adapter.notifyDataSetChanged();
-                display.setAdapter(adapter);
+                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
+                lAdapter = new ListAdapter(getApplicationContext(), description, titles);
+                lAdapter.notifyDataSetChanged();
+                display.setAdapter(lAdapter);
             }
         });
     }
