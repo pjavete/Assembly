@@ -1,17 +1,9 @@
 package com.example.payton.assembly;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,8 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -30,7 +20,7 @@ public class CreatedDisplay extends AppCompatActivity {
 
     ListView display;
     ListAdapter lAdapter;
-    String TAG = "eventstrings";
+    String TAG = "CreatedDisplay";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private ArrayList<StringBuffer> titles = new ArrayList<>();
@@ -51,6 +41,7 @@ public class CreatedDisplay extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
                 titles.clear();
+                description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
                     StringBuffer titleBuffer = new StringBuffer();
                     StringBuffer descriptionBuffer = new StringBuffer();
