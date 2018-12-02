@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class EventDetailFragment extends Fragment {
+public class JoinedDetailFragment extends Fragment {
     int position = 0;
-    TextView tvTitle;
-    TextView tvDetails;
+    TextView tvTitle2;
+    TextView tvDetails2;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,24 +29,24 @@ public class EventDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
 
         // Inflate the xml file for the fragment
-        return inflater.inflate(R.layout.activity_event_detail_fragment, parent, false);
+        return inflater.inflate(R.layout.activity_joined_detail_fragment2, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Set values for view here
-        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvDetails = (TextView) view.findViewById(R.id.tvDetails);
+        tvTitle2 = (TextView) view.findViewById(R.id.tvTitle2);
+        tvDetails2 = (TextView) view.findViewById(R.id.tvDetails2);
 
         // update view
-        tvTitle.setText(EventStrings.events[position]);
-        tvDetails.setText(EventStrings.eventDetails[position]);
+        tvTitle2.setText(EventStrings.joinedEventTitles[position]);
+        tvDetails2.setText(EventStrings.joinedEventDetails[position]);
     }
 
     // Activity is calling this to update view on Fragment
     public void updateView(int position){
-        tvTitle.setText(EventStrings.events[position]);
-        tvDetails.setText(EventStrings.eventDetails[position]);
+        tvTitle2.setText(EventStrings.joinedEventTitles[position]);
+        tvDetails2.setText(EventStrings.joinedEventDetails[position]);
     }
 }
 

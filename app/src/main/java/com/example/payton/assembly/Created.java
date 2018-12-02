@@ -1,12 +1,8 @@
 package com.example.payton.assembly;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 public class Created extends AppCompatActivity  implements CreatedFragment.OnItemSelectedListener {
 
@@ -33,7 +29,7 @@ public class Created extends AppCompatActivity  implements CreatedFragment.OnIte
     public void onEventItemSelected(int position) {
 
         // Load Pizza Detail Fragment
-        EventDetailFragment secondFragment = new EventDetailFragment();
+        CreatedDetailFragment secondFragment = new CreatedDetailFragment();
 
         Bundle args = new Bundle();
         args.putInt("position", position);

@@ -1,8 +1,8 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,7 +22,7 @@ public class opening extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                //finish();
                 Intent login_redirect = new Intent(opening.this, login.class);
                 startActivity(login_redirect);
             }
