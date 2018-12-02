@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -37,7 +38,7 @@ public class CreatedDisplay extends AppCompatActivity {
         String userID = user.getUid();
         display = (ListView) findViewById(R.id.display);
 
-        db.collection("users").document(userID).collection("createdEvents").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("users").document(userID).collection("createdEvents").orderBy("Start Date").addSnapshotListener( new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
                 titles.clear();
@@ -53,7 +54,7 @@ public class CreatedDisplay extends AppCompatActivity {
                 }
 
                 //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
-                lAdapter = new ListAdapter(getApplicationContext(), description, titles);
+                lAdapter = new ListAdapter(getApplicationContext(), titles, description);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }

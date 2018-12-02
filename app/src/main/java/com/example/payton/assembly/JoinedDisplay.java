@@ -40,6 +40,8 @@ public class JoinedDisplay extends AppCompatActivity {
         db.collection("users").document(userID).collection("joinedEvents").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+
                 titles.clear();
                 description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
@@ -53,7 +55,7 @@ public class JoinedDisplay extends AppCompatActivity {
                 }
 
                 //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
-                lAdapter = new ListAdapter(getApplicationContext(), description, titles);
+                lAdapter = new ListAdapter(getApplicationContext(), titles, description);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }
