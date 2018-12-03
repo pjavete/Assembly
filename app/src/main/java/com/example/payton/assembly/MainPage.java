@@ -11,7 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,8 +46,6 @@ public class MainPage extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,9 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         //this changes the font
-        TextView tv = (TextView)findViewById(R.id.EventsTitle);
+        /*TextView tv = (TextView)findViewById(R.id.EventsTitle);
         Typeface faces = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
-        tv.setTypeface(faces);
+        tv.setTypeface(faces);*/
         //this changes the font
       
         db = FirebaseFirestore.getInstance();
@@ -103,9 +105,8 @@ public class MainPage extends AppCompatActivity {
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
         navUsername.setTypeface(face);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String userID = user.getEmail();
-        navUsername.setText(userID);
+        String userEmail = user.getEmail();
+        navUsername.setText(userEmail);
         //this sets the navigation header to the USER ID from firebase
 
         nv = (NavigationView)findViewById(R.id.nv);

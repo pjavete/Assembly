@@ -25,13 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Events" />
         <activity android:name=".createEvents" />
         <activity android:name=".joinEvents" />
         <activity android:name=".codeGenerator" />
         <activity android:name=".login" />
         <activity android:name=".signup" />
-        <activity android:name=".mySchedule" />
         <activity android:name=".MyEvents" />
         <activity android:name=".MainPage" />
         <activity android:name=".CreatedDisplay" />
