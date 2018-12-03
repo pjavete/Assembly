@@ -16,6 +16,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+
+import org.w3c.dom.Text;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,12 +42,20 @@ public class MainPage extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        //this changes the font
+        TextView tv = (TextView)findViewById(R.id.EventsTitle);
+        Typeface faces = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
+        tv.setTypeface(faces);
+        //this changes the font
+      
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -83,6 +95,18 @@ public class MainPage extends AppCompatActivity {
         t.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //this sets the navigation header to the USER ID from firebase
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nv);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.navusername);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        navUsername.setTypeface(face);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getEmail();
+        navUsername.setText(userID);
+        //this sets the navigation header to the USER ID from firebase
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -160,3 +184,5 @@ public class MainPage extends AppCompatActivity {
         myDialog.show();
     }
 }
+
+

@@ -7,10 +7,6 @@
     android:background="@drawable/pastel"
     tools:context=".signup">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/MyHintText">
     <EditText
         android:id="@+id/email2"
         android:layout_width="match_parent"
@@ -19,14 +15,8 @@
         android:layout_marginTop="58dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:theme="@style/MyEditText"/>
-    </android.support.design.widget.TextInputLayout>
+        android:inputType="textEmailAddress" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/MyHintText">
     <EditText
         android:id="@+id/password2"
         android:layout_width="match_parent"
@@ -35,9 +25,7 @@
         android:layout_marginTop="142dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword"
-        android:theme="@style/MyEditText"/>
-    </android.support.design.widget.TextInputLayout>
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/signup"
@@ -47,5 +35,4 @@
         android:background="@color/colorAccent"
         android:textColor="@android:color/white"
         android:text="Sign Up" />
-
 </android.widget.RelativeLayout>
