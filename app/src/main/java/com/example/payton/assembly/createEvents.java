@@ -1,13 +1,19 @@
 package com.example.payton.assembly;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +52,10 @@ public class createEvents extends AppCompatActivity {
     TextInputLayout startTimeLayout;
     TextInputLayout endTimeLayout;
 
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +64,9 @@ public class createEvents extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.titleView);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
         tv.setTypeface(face);
+        submit = (Button)findViewById(R.id.submitButton);
+        Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        submit.setTypeface(typefaces);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -73,8 +90,6 @@ public class createEvents extends AppCompatActivity {
         startTimeLayout.setError("24 Hour Time"); // show error
         endTimeLayout.setError("24 Hour Time"); // show error
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
-        submit.setTypeface(typeface);
     }
 
     //tests to make sure all fields have something filled out (no empty)
@@ -90,8 +105,8 @@ public class createEvents extends AppCompatActivity {
         //get text from each field
         String eventTitle = eventText.getText().toString();
         String sDate = startDate.getText().toString();
-        String eDate = endDate.getText().toString();
         String sTime = startTime.getText().toString();
+        String eDate = endDate.getText().toString();
         String eTime = endTime.getText().toString();
         String location = locationText.getText().toString();
         String description = descText.getText().toString();
@@ -107,12 +122,19 @@ public class createEvents extends AppCompatActivity {
 
             Map<String, Object> eventData = new HashMap<>();
             eventData.put("Event Name", eventTitle);
-            eventData.put("Start Date", sDate);
-            eventData.put("End Date", eDate);
-            eventData.put("Start Time", sTime);
-            eventData.put("End Time", eTime);
             eventData.put("Location", location);
             eventData.put("Description", description);
+
+            try {
+                sDate = sDate + " " + sTime;
+                Date StartDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(sDate);
+                eventData.put("Start Date", StartDate);
+                eDate = eDate + " " + eTime;
+                Date EndDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(eDate);
+                eventData.put("End Date", EndDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             // Add a new document into the events collection
             eventid = db.collection("users").document().getId();
@@ -131,8 +153,12 @@ public class createEvents extends AppCompatActivity {
                         }
                     });
 
+            //adds the owner boolean set to true to the event before adding it to myEvents
+            boolean owner = true;
+            eventData.put("Owner", owner);
+
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
-            db.collection("users").document(user.getUid()).collection("createdEvents").document(eventid)
+            db.collection("users").document(userID).collection("myEvents").document(eventid)
                     .set(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -164,4 +190,5 @@ public class createEvents extends AppCompatActivity {
             startActivity(passcode);
         }
     }
+
 }

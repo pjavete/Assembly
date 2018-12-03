@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -16,15 +17,20 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="182dp"
-            android:layout_height="184dp"
+            android:layout_width="273dp"
+            android:layout_height="199dp"
             app:srcCompat="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/navusername"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
     </LinearLayout>
-    <TextView
-        android:id="@+id/UserEmailHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent" />
+
 </LinearLayout>
 
 

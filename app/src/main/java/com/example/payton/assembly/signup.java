@@ -102,4 +102,14 @@ public class signup extends AppCompatActivity {
 
         }
     }
+
+    //just fixes the back button exiting the app
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent(signup.this,opening.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
