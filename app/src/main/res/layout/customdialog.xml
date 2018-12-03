@@ -6,10 +6,11 @@
     tools:ignore="MissingDefaultResource">
 
     <FrameLayout
-        android:layout_width="219dp"
-        android:layout_height="104dp"
+        android:layout_width="200dp"
+        android:layout_height="164dp"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp">
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/pastel">
 
         <TextView
             android:id="@+id/textbox"
@@ -17,6 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
             android:text="Are you sure you want to logout?"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
@@ -26,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:layout_margin="5dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/button_background"
             android:text="Yes"
             android:textColor="@android:color/white" />
 
@@ -36,8 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|right"
             android:layout_margin="5dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/button_background"
             android:text="No"
             android:textColor="@android:color/white" />
     </FrameLayout>
+
 </LinearLayout>

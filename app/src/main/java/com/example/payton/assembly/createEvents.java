@@ -1,13 +1,19 @@
 package com.example.payton.assembly;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,6 +48,10 @@ public class createEvents extends AppCompatActivity {
     TextInputLayout startTimeLayout;
     TextInputLayout endTimeLayout;
 
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +60,9 @@ public class createEvents extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.titleView);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
         tv.setTypeface(face);
+        submit = (Button)findViewById(R.id.submitButton);
+        Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        submit.setTypeface(typefaces);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -73,8 +86,6 @@ public class createEvents extends AppCompatActivity {
         startTimeLayout.setError("24 Hour Time"); // show error
         endTimeLayout.setError("24 Hour Time"); // show error
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
-        submit.setTypeface(typeface);
     }
 
     //tests to make sure all fields have something filled out (no empty)
@@ -164,4 +175,5 @@ public class createEvents extends AppCompatActivity {
             startActivity(passcode);
         }
     }
+
 }
