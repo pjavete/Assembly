@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Join"
+        android:textColor="@color/colorAccent"
         android:textSize="32sp" />
 
     <LinearLayout
@@ -28,7 +29,8 @@
             android:hint="Enter the group code here."
             android:inputType="textPersonName"
             android:textColorLink="@color/colorAccent"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:theme="@style/MyEditText" />
 
         <Button
             android:id="@+id/joinButton"
@@ -36,6 +38,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Join"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
             android:onClick="joinEvent"/>
     </LinearLayout>
 

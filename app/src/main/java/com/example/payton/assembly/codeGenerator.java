@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,6 +24,8 @@ public class codeGenerator extends AppCompatActivity {
         setContentView(R.layout.activity_code_generator);
         copyButton = findViewById(R.id.copyButton);
         eventCode = findViewById(R.id.eventCode);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        copyButton.setTypeface(typeface);
 
         //retrieves the event id and sets it as the eventCode
         Intent intent = getIntent();
@@ -38,5 +41,6 @@ public class codeGenerator extends AppCompatActivity {
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
         finish();
         onBackPressed();
+        //:(((
     }
 }

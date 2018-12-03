@@ -35,7 +35,7 @@
         <activity android:name=".MyEvents" />
         <activity android:name=".MainPage" />
         <activity android:name=".CreatedDisplay" />
-        <activity android:name=".JoinedDisplay"></activity>
+        <activity android:name=".JoinedDisplay"/>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.example.payton.assembly;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -93,28 +96,26 @@ public class MainPage extends AppCompatActivity {
                         Intent homepage_redirect = new Intent(MainPage.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
-                    case R.id.events:
-                        Intent myevents_redirect = new Intent(MainPage.this, Events.class);
+                    case R.id.myevents:
+                        Intent myevents_redirect = new Intent(MainPage.this, MyEvents.class);
                         startActivity(myevents_redirect);
                         return true;
-                    case R.id.schedule:
-                        Intent myschedule_redirect = new Intent(MainPage.this, mySchedule.class);
-                        startActivity(myschedule_redirect);
+                    case R.id.createEvent:
+                        Intent createEvent_redirect = new Intent(MainPage.this, createEvents.class);
+                        startActivity(createEvent_redirect);
                         return true;
-                    case R.id.account:
-                        Toast.makeText(MainPage.this, "Goes to account settings",Toast.LENGTH_SHORT).show();
+                    case R.id.joinEvent:
+                        Intent joinEvent_redirect = new Intent(MainPage.this, joinEvents.class);
+                        startActivity(joinEvent_redirect);
+                        return true;
+                    case R.id.logout:
+                        MyCustomAlertDialog();
                         return true;
                     default:
                         return true;
                 }
-
-
-
-
             }
         });
-
-
     }
 
     @Override
@@ -124,5 +125,38 @@ public class MainPage extends AppCompatActivity {
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void MyCustomAlertDialog(){
+        final Dialog myDialog = new Dialog(MainPage.this);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        myDialog.setContentView(R.layout.customdialog);
+        myDialog.setTitle("My Custom Dialog");
+        Button hello = (Button)myDialog.findViewById(R.id.hello);
+        Button close = (Button)myDialog.findViewById(R.id.close);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        hello.setTypeface(typeface);
+        close.setTypeface(typeface);
+        hello.setEnabled(true);
+        close.setEnabled(true);
+
+        hello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                fAuth.signOut();
+                Intent signout_redirect = new Intent(MainPage.this, opening.class);
+                startActivity(signout_redirect);
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.cancel();
+            }
+        });
+
+        myDialog.show();
     }
 }
