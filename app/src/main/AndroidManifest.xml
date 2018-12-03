@@ -42,8 +42,12 @@
         <activity android:name=".MainPage"
             android:theme="@style/AppTheme"
             android:label="Upcoming Events"/>
-        <activity android:name=".CreatedDisplay" />
-        <activity android:name=".JoinedDisplay"/>
+        <activity android:name=".CreatedDisplay"
+            android:theme="@style/AppTheme"
+            android:label="Created Events" />
+        <activity android:name=".JoinedDisplay"
+            android:theme="@style/AppTheme"
+            android:label="Joined Events"/>
     </application>
 
 </manifest>
