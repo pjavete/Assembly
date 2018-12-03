@@ -6,10 +6,12 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -38,12 +40,15 @@ public class CreatedDisplay extends AppCompatActivity {
         String userID = user.getUid();
         display = (ListView) findViewById(R.id.display);
 
-        db.collection("users").document(userID).collection("createdEvents").orderBy("Start Date").addSnapshotListener( new EventListener<QuerySnapshot>() {
+        db.collection("users").document(userID).collection("myEvents").orderBy("Start Date").addSnapshotListener( new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
                 titles.clear();
                 description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
+                    if (snapshot.get("Owner").equals(false)){
+                        continue;
+                    }
                     StringBuffer titleBuffer = new StringBuffer();
                     StringBuffer descriptionBuffer = new StringBuffer();
 

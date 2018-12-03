@@ -37,12 +37,15 @@ public class JoinedDisplay extends AppCompatActivity {
         String userID = user.getUid();
         display = (ListView) findViewById(R.id.display2);
 
-        db.collection("users").document(userID).collection("joinedEvents").orderBy("Start Date").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("users").document(userID).collection("myEvents").orderBy("Start Date").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
                 titles.clear();
                 description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
+                    if (snapshot.get("Owner").equals(true)){
+                        continue;
+                    }
                     StringBuffer titleBuffer = new StringBuffer();
                     StringBuffer descriptionBuffer = new StringBuffer();
 

@@ -117,8 +117,12 @@ public class createEvents extends AppCompatActivity {
                         }
                     });
 
+            //adds the owner boolean set to true to the event before adding it to myEvents
+            boolean owner = true;
+            eventData.put("Owner", owner);
+
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
-            db.collection("users").document(userID).collection("createdEvents").document(eventid)
+            db.collection("users").document(userID).collection("myEvents").document(eventid)
                     .set(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

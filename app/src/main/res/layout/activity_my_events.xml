@@ -11,17 +11,10 @@
         android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/myevents"
+        <ListView
+            android:id="@+id/displayAllEvents"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="0dp"
-            android:gravity="center"
-            android:text="My Events"
-            android:textColor="@color/colorAccent"
-            android:textSize="50dp" />
+            android:layout_height="wrap_content" />
 
 
     </RelativeLayout>
