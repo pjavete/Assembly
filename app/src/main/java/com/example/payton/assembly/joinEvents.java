@@ -1,5 +1,8 @@
 package com.example.payton.assembly;
 
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +31,6 @@ public class joinEvents extends AppCompatActivity{
     String TAG = "joinEvent";
     Button joinButton;
     EditText codeText;
-    Boolean found = false;
     Map<String, Object> eventData;
 
     @Override
@@ -39,6 +41,9 @@ public class joinEvents extends AppCompatActivity{
 
         joinButton = findViewById(R.id.joinButton);
         codeText = findViewById(R.id.codeText);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        joinButton.setTypeface(typeface);
+
     }
 
 
@@ -50,18 +55,13 @@ public class joinEvents extends AppCompatActivity{
         db = FirebaseFirestore.getInstance();
 
         //looks to see if the user has created the event and if so will not let the user join it
-        Task<DocumentSnapshot> eventID = db.collection("users").document(userID).collection("createdEvents").document(codeEvent).get();
+        Task<DocumentSnapshot> eventID = db.collection("users").document(userID).collection("myEvents").document(codeEvent).get();
         eventID.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.getResult().getData() != null) {
-                    found = true;
-                } else {
-                    found = false;
-                }
 
-                //uses the check to see if people joined the event to determine what to do next
-                if(found == true){
+                //checks if the user is the owner of the event they are trying to join
+                if(task.getResult().getData().get("Owner").equals(true)){
                     toastMaker(0);
                     codeText.getText().clear();
                 }else {
@@ -74,8 +74,12 @@ public class joinEvents extends AppCompatActivity{
                                 DocumentSnapshot snapshot = task.getResult();
                                 eventData = snapshot.getData();
 
+                                //adds the owner boolean set to true to the event before adding it to myEvents
+                                boolean owner = false;
+                                eventData.put("Owner", owner);
+
                                 //puts the retrieved event into the users personal collection of joined events
-                                db.collection("users").document(userID).collection("joinedEvents").document(codeEvent)
+                                db.collection("users").document(userID).collection("myEvents").document(codeEvent)
                                         .set(eventData)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

@@ -16,7 +16,6 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Events" />
         <activity
             android:name=".opening"
             android:label="Assembly">
@@ -26,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Events" />
         <activity android:name=".createEvents" />
         <activity android:name=".joinEvents" />
         <activity android:name=".codeGenerator" />
@@ -35,7 +35,7 @@
         <activity android:name=".MyEvents" />
         <activity android:name=".MainPage" />
         <activity android:name=".CreatedDisplay" />
-        <activity android:name=".JoinedDisplay"></activity>
+        <activity android:name=".JoinedDisplay"/>
     </application>
 
 </manifest>

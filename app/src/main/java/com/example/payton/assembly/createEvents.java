@@ -1,13 +1,16 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +41,20 @@ public class createEvents extends AppCompatActivity {
     EditText locationText;
     EditText descText;
     Button submit;
+    TextInputLayout startDateLayout;
+    TextInputLayout endDateLayout;
+    TextInputLayout startTimeLayout;
+    TextInputLayout endTimeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
+
+        TextView tv = (TextView) findViewById(R.id.titleView);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
+        tv.setTypeface(face);
+
         mAuth = FirebaseAuth.getInstance();
 
         //EditText instances
@@ -50,6 +66,19 @@ public class createEvents extends AppCompatActivity {
         locationText = findViewById(R.id.locationText);
         descText = findViewById(R.id.descText);
         submit = findViewById(R.id.submitButton);
+
+        startDateLayout = findViewById(R.id.startDateLayout);
+        endDateLayout = findViewById(R.id.endDateLayout);
+        startTimeLayout = findViewById(R.id.startTimeLayout);
+        endTimeLayout = findViewById(R.id.endTimeLayout);
+
+        startDateLayout.setError("MM/DD/YYYY"); // show error
+        endDateLayout.setError("MM/DD/YYYY"); // show error
+        startTimeLayout.setError("24 Hour Time"); // show error
+        endTimeLayout.setError("24 Hour Time"); // show error
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        submit.setTypeface(typeface);
     }
 
     //tests to make sure all fields have something filled out (no empty)
@@ -65,8 +94,8 @@ public class createEvents extends AppCompatActivity {
         //get text from each field
         String eventTitle = eventText.getText().toString();
         String sDate = startDate.getText().toString();
-        String eDate = endDate.getText().toString();
         String sTime = startTime.getText().toString();
+        String eDate = endDate.getText().toString();
         String eTime = endTime.getText().toString();
         String location = locationText.getText().toString();
         String description = descText.getText().toString();
@@ -82,12 +111,19 @@ public class createEvents extends AppCompatActivity {
 
             Map<String, Object> eventData = new HashMap<>();
             eventData.put("Event Name", eventTitle);
-            eventData.put("Start Date", sDate);
-            eventData.put("End Date", eDate);
-            eventData.put("Start Time", sTime);
-            eventData.put("End Time", eTime);
             eventData.put("Location", location);
             eventData.put("Description", description);
+
+            try {
+                sDate = sDate + " " + sTime;
+                Date StartDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(sDate);
+                eventData.put("Start Date", StartDate);
+                eDate = eDate + " " + eTime;
+                Date EndDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(eDate);
+                eventData.put("End Date", EndDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             // Add a new document into the events collection
             eventid = db.collection("users").document().getId();
@@ -106,8 +142,12 @@ public class createEvents extends AppCompatActivity {
                         }
                     });
 
+            //adds the owner boolean set to true to the event before adding it to myEvents
+            boolean owner = true;
+            eventData.put("Owner", owner);
+
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
-            db.collection("users").document(user.getUid()).collection("createdEvents").document(eventid)
+            db.collection("users").document(userID).collection("myEvents").document(eventid)
                     .set(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

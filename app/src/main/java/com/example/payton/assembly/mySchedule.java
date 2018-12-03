@@ -1,7 +1,10 @@
 package com.example.payton.assembly;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,8 +12,23 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class mySchedule extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    String eventid;
+    String TAG = "newSchedule";
+
 
     Spinner monstart;
     Spinner monend;
@@ -31,7 +49,7 @@ public class mySchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myschedule);
-
+        mAuth = FirebaseAuth.getInstance();
 
         //this creates the spinner arrays
         setgetmonstart();
@@ -64,6 +82,29 @@ public class mySchedule extends AppCompatActivity {
         donebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String mondaystart = monstart.getSelectedItem().toString();
+                FirebaseUser user = mAuth.getCurrentUser();
+                String userID = user.getUid();
+                Intent intent = getIntent();
+                db = FirebaseFirestore.getInstance();
+                Map<String, Object> scheduleData = new HashMap<>();
+                scheduleData.put("Monday Start", mondaystart);
+                eventid = db.collection("users").document().getId();
+                db.collection("users").document(user.getUid()).collection("schedules").document(eventid)
+                        .set(scheduleData)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+
                 finish();
                 onBackPressed();
             }
@@ -83,11 +124,7 @@ public class mySchedule extends AppCompatActivity {
                 String startmonday = monstart.getSelectedItem().toString();
                 String endmonday = monend.getSelectedItem().toString();
                 //add to database
-
-                //DatabaseReference databases = database.child("CU74uVyU2eNP87jdVvQY").child("monday");
-                //DatabaseReference databasespush = databases.push();
-                //databasespush.setValue(startmonday);
-                //this clears the spinners so you can add another selection
+                 //this clears the spinners so you can add another selection
                 monstart.setSelection(0);
                 monend.setSelection(0);
                 Toast.makeText(mySchedule.this, "You can add another chunk of time to Monday", Toast.LENGTH_LONG).show();

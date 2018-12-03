@@ -1,6 +1,7 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +15,14 @@ public class Events extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
         setContentView(R.layout.activity_events);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
+        button1.setTypeface(typeface);
+        button2.setTypeface(typeface);
+        button3.setTypeface(typeface);
 
 
         //Enter info button

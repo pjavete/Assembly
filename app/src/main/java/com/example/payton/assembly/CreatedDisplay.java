@@ -6,13 +6,16 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -38,23 +41,30 @@ public class CreatedDisplay extends AppCompatActivity {
         String userID = user.getUid();
         display = (ListView) findViewById(R.id.display);
 
-        db.collection("users").document(userID).collection("createdEvents").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("users").document(userID).collection("myEvents").orderBy("Start Date").addSnapshotListener( new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
                 titles.clear();
                 description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
+                    if (snapshot.get("Owner").equals(false)){
+                        continue;
+                    }
                     StringBuffer titleBuffer = new StringBuffer();
                     StringBuffer descriptionBuffer = new StringBuffer();
+
                     titleBuffer.append(snapshot.getString("Event Name"));
-                    descriptionBuffer.append(snapshot.getString("Description"));
+                    String Details = "Start Date and Time: " + snapshot.get("Start Date").toString() + "\n"
+                            + "End Date and Time: " + snapshot.get("End Date").toString() + "\n"
+                            + "Location: " + snapshot.getString("Location") + "\n"
+                            + snapshot.getString("Description");
+                    descriptionBuffer.append(Details);
 
                     titles.add(titleBuffer);
                     description.add(descriptionBuffer);
                 }
 
-                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
-                lAdapter = new ListAdapter(getApplicationContext(), description, titles);
+                lAdapter = new ListAdapter(getApplicationContext(), titles, description);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }

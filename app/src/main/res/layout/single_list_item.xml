@@ -26,10 +26,7 @@
         android:layout_below="@+id/Eventname"
         android:layout_alignStart="@+id/Eventname"
         android:layout_alignLeft="@+id/Eventname"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="6dp"
-        android:maxLines="1"
+        android:singleLine="false"
         android:text="Android Version"
         android:textSize="25sp" />
 

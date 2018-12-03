@@ -66,15 +66,15 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.Eventname);
-        viewHolder.txtName = (TextView) convertView.findViewById(R.id.description);
-        viewHolder.imageview = (ImageView) convertView.findViewById(R.id.imageview);
 
+        viewHolder.txtName = (TextView) convertView.findViewById(R.id.Eventname);
+        viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
+        viewHolder.imageview = (ImageView) convertView.findViewById(R.id.imageview);
 
         convertView.setTag(viewHolder);
 
-        viewHolder.txtVersion.setText(Names.get(position));
-        viewHolder.txtName.setText(Desc.get(position));
+        viewHolder.txtName.setText(Names.get(position));
+        viewHolder.txtDesc.setText(Desc.get(position));
 
 
         viewHolder.imageview.setOnClickListener( new View.OnClickListener()
@@ -117,7 +117,7 @@ public class ListAdapter extends BaseAdapter {
 
         ImageView imageview;
         TextView txtName;
-        TextView txtVersion;
+        TextView txtDesc;
 
     }
 
