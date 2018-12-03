@@ -17,12 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainPage extends AppCompatActivity {
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,16 @@ public class MainPage extends AppCompatActivity {
         t.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //this sets the navigation header to the USER ID from firebase
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nv);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.navusername);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getEmail();
+        navUsername.setText(userID);
+        //this sets the navigation header to the USER ID from firebase
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -113,3 +127,5 @@ public class MainPage extends AppCompatActivity {
         myDialog.show();
     }
 }
+
+
