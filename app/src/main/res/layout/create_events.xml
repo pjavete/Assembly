@@ -10,14 +10,6 @@
     tools:context=".createEvents">
 
     <TextView
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create"
-        android:textColor="@color/colorAccent"
-        android:textSize="32sp" />
-
-    <TextView
         android:id="@+id/eventView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
