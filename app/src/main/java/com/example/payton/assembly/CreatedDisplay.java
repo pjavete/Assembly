@@ -26,6 +26,7 @@ public class CreatedDisplay extends AppCompatActivity {
     private ArrayList<StringBuffer> titles = new ArrayList<>();
     private ArrayList<StringBuffer> description = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,4 +60,6 @@ public class CreatedDisplay extends AppCompatActivity {
             }
         });
     }
+
+
 }
