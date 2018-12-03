@@ -17,12 +17,18 @@ public class ListAdapter extends BaseAdapter {
 
     Context context;
     private final ArrayList<StringBuffer> Names;
+    private final ArrayList<StringBuffer> StartDate;
+    private final ArrayList<StringBuffer> EndDate;
+    private final ArrayList<StringBuffer> Loc;
     private final ArrayList<StringBuffer> Desc;
 
-    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc){
+    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> StartDate, ArrayList<StringBuffer> EndDate, ArrayList<StringBuffer> Loc, ArrayList<StringBuffer> Desc){
         //super(context, R.layout.single_list__item, utilsArrayList);
         this.context = context;
         this.Names = Names;
+        this.StartDate = StartDate;
+        this.EndDate = EndDate;
+        this.Loc = Loc;
         this.Desc = Desc;
     }
 
@@ -62,14 +68,20 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.Eventname);
-        viewHolder.txtName = (TextView) convertView.findViewById(R.id.description);
+        viewHolder.txtName = (TextView) convertView.findViewById(R.id.Eventname);
+        viewHolder.txtStartDate = (TextView) convertView.findViewById(R.id.startdate);
+        viewHolder.txtEndDate = (TextView) convertView.findViewById(R.id.enddate);
+        viewHolder.txtLoc = (TextView) convertView.findViewById(R.id.location);
+        viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
 
 
         convertView.setTag(viewHolder);
 
-        viewHolder.txtVersion.setText(Names.get(position));
-        viewHolder.txtName.setText(Desc.get(position));
+        viewHolder.txtName.setText(Names.get(position));
+        viewHolder.txtStartDate.setText(StartDate.get(position));
+        viewHolder.txtEndDate.setText(EndDate.get(position));
+        viewHolder.txtLoc.setText(Loc.get(position));
+        viewHolder.txtDesc.setText(Desc.get(position));
 
 
         return convertView;
@@ -78,7 +90,10 @@ public class ListAdapter extends BaseAdapter {
     private static class ViewHolder {
 
         TextView txtName;
-        TextView txtVersion;
+        TextView txtStartDate;
+        TextView txtEndDate;
+        TextView txtLoc;
+        TextView txtDesc;
 
     }
 
