@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Text;
+
 public class MainPage extends AppCompatActivity {
 
     private DrawerLayout dl;
@@ -33,6 +35,13 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        //this changes the font
+        TextView tv = (TextView)findViewById(R.id.EventsTitle);
+        Typeface faces = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
+        tv.setTypeface(faces);
+        //this changes the font
+
+
         dl = (DrawerLayout)findViewById(R.id.activity_main_page);
         t = new ActionBarDrawerToggle(this, dl,R.string.Open,R.string.Close);
 
@@ -45,6 +54,8 @@ public class MainPage extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nv);
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.navusername);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        navUsername.setTypeface(face);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getEmail();
