@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,8 +94,8 @@ public class createEvents extends AppCompatActivity {
         //get text from each field
         String eventTitle = eventText.getText().toString();
         String sDate = startDate.getText().toString();
-        String eDate = endDate.getText().toString();
         String sTime = startTime.getText().toString();
+        String eDate = endDate.getText().toString();
         String eTime = endTime.getText().toString();
         String location = locationText.getText().toString();
         String description = descText.getText().toString();
@@ -107,12 +111,19 @@ public class createEvents extends AppCompatActivity {
 
             Map<String, Object> eventData = new HashMap<>();
             eventData.put("Event Name", eventTitle);
-            eventData.put("Start Date", sDate);
-            eventData.put("End Date", eDate);
-            eventData.put("Start Time", sTime);
-            eventData.put("End Time", eTime);
             eventData.put("Location", location);
             eventData.put("Description", description);
+
+            try {
+                sDate = sDate + " " + sTime;
+                Date StartDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(sDate);
+                eventData.put("Start Date", StartDate);
+                eDate = eDate + " " + eTime;
+                Date EndDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(eDate);
+                eventData.put("End Date", EndDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             // Add a new document into the events collection
             eventid = db.collection("users").document().getId();
@@ -131,8 +142,12 @@ public class createEvents extends AppCompatActivity {
                         }
                     });
 
+            //adds the owner boolean set to true to the event before adding it to myEvents
+            boolean owner = true;
+            eventData.put("Owner", owner);
+
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
-            db.collection("users").document(user.getUid()).collection("createdEvents").document(eventid)
+            db.collection("users").document(userID).collection("myEvents").document(eventid)
                     .set(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

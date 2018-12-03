@@ -22,7 +22,7 @@
         android:layout_below="@+id/Eventname"
         android:layout_alignStart="@+id/Eventname"
         android:layout_alignLeft="@+id/Eventname"
-        android:maxLines="1"
+        android:singleLine="false"
         android:text="Android Version"
         android:textSize="14sp" />
 

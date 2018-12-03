@@ -62,14 +62,14 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.Eventname);
-        viewHolder.txtName = (TextView) convertView.findViewById(R.id.description);
+        viewHolder.txtName = (TextView) convertView.findViewById(R.id.Eventname);
+        viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
 
 
         convertView.setTag(viewHolder);
 
-        viewHolder.txtVersion.setText(Names.get(position));
-        viewHolder.txtName.setText(Desc.get(position));
+        viewHolder.txtName.setText(Names.get(position));
+        viewHolder.txtDesc.setText(Desc.get(position));
 
 
         return convertView;
@@ -78,7 +78,7 @@ public class ListAdapter extends BaseAdapter {
     private static class ViewHolder {
 
         TextView txtName;
-        TextView txtVersion;
+        TextView txtDesc;
 
     }
 
