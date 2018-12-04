@@ -100,7 +100,8 @@ public class editEvents extends AppCompatActivity {
         String editID = intent.getStringExtra("editID");
 
         db.collection("users").document(userID).collection("myEvents").document(editID)
-                .get();
+                .get()
+                .addOnCompleteListener();
 
         eventText.setText(code);
         startTime.setText(code);

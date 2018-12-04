@@ -24,12 +24,14 @@ public class ListAdapter extends BaseAdapter {
     Context context;
     private final ArrayList<StringBuffer> Names;
     private final ArrayList<StringBuffer> Desc;
+    private final ArrayList<String> eventIDs;
 
-    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc){
+    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc, ArrayList<String> eventIDs){
         //super(context, R.layout.single_list__item, utilsArrayList);
         this.context = context;
         this.Names = Names;
         this.Desc = Desc;
+        this.eventIDs = eventIDs;
     }
 
     @Override
@@ -78,7 +80,7 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.txtName.setText(Names.get(position));
         viewHolder.txtDesc.setText(Desc.get(position));
 
-
+        final String eventID = eventIDs.get(position);
         viewHolder.imageview.setOnClickListener( new View.OnClickListener()
         {
             @Override
@@ -93,14 +95,13 @@ public class ListAdapter extends BaseAdapter {
                         switch (item.getItemId()) {
                             case R.id.edit:
                                 Intent editPage = new Intent(context, editEvents.class);
-                                editPage.putExtra("editID", editID);
+                                editPage.putExtra("editID", eventID);
                                 context.startActivity(editPage);
                                 break;
                             case R.id.destroy:
 
 
                                 break;
-
                             default:
                                 break;
                         }
