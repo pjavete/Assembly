@@ -18,7 +18,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="273dp"
-            android:layout_height="199dp"/>
+            android:layout_height="199dp"
+            android:src="@mipmap/icon"/>
 
         <TextView
             android:id="@+id/navusername"
