@@ -64,7 +64,7 @@ public class editEvents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_events);
+        setContentView(R.layout.edit_events);
 
         submit = (Button)findViewById(R.id.submitButton2);
         //Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
