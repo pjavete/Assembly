@@ -6,14 +6,6 @@
     android:orientation="vertical"
     tools:context=".joinEvents">
 
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Join"
-        android:textColor="@color/colorAccent"
-        android:textSize="32sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -18,24 +18,36 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".opening"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="Assembly">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Events" />
-        <activity android:name=".createEvents" />
-        <activity android:name=".joinEvents" />
+        <activity android:name=".createEvents"
+            android:theme="@style/AppTheme"
+            android:label="Create Events"/>
+        <activity android:name=".joinEvents"
+            android:theme="@style/AppTheme"
+            android:label="Join Events"/>
         <activity android:name=".codeGenerator" />
-        <activity android:name=".login" />
-        <activity android:name=".signup" />
-        <activity android:name=".mySchedule" />
-        <activity android:name=".MyEvents" />
-        <activity android:name=".MainPage" />
-        <activity android:name=".CreatedDisplay" />
-        <activity android:name=".JoinedDisplay"/>
+        <activity android:name=".login"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".signup"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MyEvents"
+            android:theme="@style/AppTheme"
+            android:label="My Events"/>
+        <activity android:name=".MainPage"
+            android:theme="@style/AppTheme"
+            android:label="Upcoming Events"/>
+        <activity android:name=".CreatedDisplay"
+            android:theme="@style/AppTheme"
+            android:label="Created Events" />
+        <activity android:name=".JoinedDisplay"
+            android:theme="@style/AppTheme"
+            android:label="Joined Events"/>
     </application>
 
 </manifest>

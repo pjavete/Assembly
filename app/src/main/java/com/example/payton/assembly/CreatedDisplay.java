@@ -31,6 +31,7 @@ public class CreatedDisplay extends AppCompatActivity {
     private ArrayList<String> eventIDs = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

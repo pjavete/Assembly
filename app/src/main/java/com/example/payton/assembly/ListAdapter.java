@@ -113,6 +113,39 @@ public class ListAdapter extends BaseAdapter {
             }
         });
 
+        viewHolder.imageview.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                final PopupMenu popmenu = new PopupMenu(context, v);
+                popmenu.getMenuInflater().inflate(R.menu.popup_menu, popmenu.getMenu());
+
+                popmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+                {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.edit:
+
+                                //Or Some other code you want to put here.. This is just an example.
+
+                                break;
+                            case R.id.destroy:
+
+
+                                break;
+
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+                popmenu.show();
+            }
+        });
+
         return convertView;
     }
 
