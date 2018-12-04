@@ -1,6 +1,5 @@
 package com.example.payton.assembly;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,16 +20,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class createEvents extends AppCompatActivity {
+import javax.annotation.Nullable;
+
+public class editEvents extends AppCompatActivity {
     //variables to be used through different functions;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -68,7 +70,11 @@ public class createEvents extends AppCompatActivity {
         Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
         submit.setTypeface(typefaces);
 
+
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid();
 
         //EditText instances
         eventText = findViewById(R.id.eventText);
@@ -89,6 +95,21 @@ public class createEvents extends AppCompatActivity {
         endDateLayout.setError("MM/DD/YYYY"); // show error
         startTimeLayout.setError("24 Hour Time"); // show error
         endTimeLayout.setError("24 Hour Time"); // show error
+
+        Intent intent = getIntent();
+        String editID = intent.getStringExtra("editID");
+
+        db.collection("users").document(userID).collection("myEvents").document(editID)
+                .get()
+                .addOnCompleteListener();
+
+        eventText.setText(code);
+        startTime.setText(code);
+        endTime.setText(code);
+        startDate.setText(code);
+        endDate.setText(code);
+        locationText.setText(code);
+        descText.setText(code);
 
     }
 
@@ -184,10 +205,7 @@ public class createEvents extends AppCompatActivity {
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
             finish();
 
-            //pass the new event's id to code generator
-            passcode = new Intent(createEvents.this, codeGenerator.class);
-            passcode.putExtra("eventCode", eventid);
-            startActivity(passcode);
+            startActivity(new Intent(editEvents.this, MyEvents.class));
         }
     }
 

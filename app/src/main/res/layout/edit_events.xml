@@ -7,7 +7,15 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".createEvents">
+    tools:context=".editEvents">
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp" />
 
     <TextView
         android:id="@+id/eventView"
