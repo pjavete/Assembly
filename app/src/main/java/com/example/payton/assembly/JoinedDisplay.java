@@ -25,6 +25,7 @@ public class JoinedDisplay extends AppCompatActivity {
     private FirebaseFirestore db;
     private ArrayList<StringBuffer> titles = new ArrayList<>();
     private ArrayList<StringBuffer> description = new ArrayList<>();
+    private ArrayList<String> eventIDs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,13 @@ public class JoinedDisplay extends AppCompatActivity {
                             + snapshot.getString("Description");
                     descriptionBuffer.append(Details);
 
+                    //storing all the eventID
+                    eventIDs.add(snapshot.getId());
                     titles.add(titleBuffer);
                     description.add(descriptionBuffer);
                 }
 
-                lAdapter = new ListAdapter(getApplicationContext(), titles, description);
+                lAdapter = new ListAdapter(getApplicationContext(), titles, description, eventIDs);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }

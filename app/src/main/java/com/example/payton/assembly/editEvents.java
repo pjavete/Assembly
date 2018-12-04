@@ -16,8 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,6 +56,7 @@ public class editEvents extends AppCompatActivity {
     TextInputLayout endDateLayout;
     TextInputLayout startTimeLayout;
     TextInputLayout endTimeLayout;
+    Map<String, Object> eventData;
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -99,18 +103,36 @@ public class editEvents extends AppCompatActivity {
         Intent intent = getIntent();
         String editID = intent.getStringExtra("editID");
 
-        db.collection("users").document(userID).collection("myEvents").document(editID)
-                .get()
-                .addOnCompleteListener();
+        Task<DocumentSnapshot> eventTask = db.collection("events").document(editID).get();
+        eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot snapshot = task.getResult();
+                    eventData = snapshot.getData();
 
-        eventText.setText(code);
-        startTime.setText(code);
-        endTime.setText(code);
-        startDate.setText(code);
-        endDate.setText(code);
-        locationText.setText(code);
-        descText.setText(code);
+                    Date StartDate = (Date) eventData.get("Start Date");
+                    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                    String strDate = dateFormat.format(StartDate);
+                    String[] Start = strDate.split(" ");
 
+                    Date EndDate = (Date) eventData.get("Start Date");
+                    String enDate = dateFormat.format(EndDate);
+                    String[] End = enDate.split(" ");
+
+                    eventText.setText(eventData.get("Event Name").toString());
+                    startTime.setText(Start[1]);
+                    endTime.setText(End[1]);
+                    startDate.setText(Start[0]);
+                    endDate.setText(End[0]);
+                    locationText.setText(eventData.get("Location").toString());
+                    descText.setText(eventData.get("Description").toString());
+
+                } else {
+                    Log.d(TAG, "Error getting document.", task.getException());
+                }
+            }
+        });
     }
 
     //tests to make sure all fields have something filled out (no empty)
