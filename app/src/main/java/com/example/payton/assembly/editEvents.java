@@ -41,8 +41,7 @@ public class editEvents extends AppCompatActivity {
     //variables to be used through different functions;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    String eventid;
-    Intent passcode;
+    String editID;
     String TAG = "newEvent";
     EditText eventText;
     EditText startTime;
@@ -67,12 +66,9 @@ public class editEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
 
-        TextView tv = (TextView) findViewById(R.id.titleView);
-        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
-        tv.setTypeface(face);
-        submit = (Button)findViewById(R.id.submitButton);
-        Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
-        submit.setTypeface(typefaces);
+        submit = (Button)findViewById(R.id.submitButton2);
+        //Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        //submit.setTypeface(typefaces);
 
 
         db = FirebaseFirestore.getInstance();
@@ -81,19 +77,19 @@ public class editEvents extends AppCompatActivity {
         String userID = user.getUid();
 
         //EditText instances
-        eventText = findViewById(R.id.eventText);
-        startTime = findViewById(R.id.startTime);
-        endTime = findViewById(R.id.endTime);
-        startDate = findViewById(R.id.startDate);
-        endDate = findViewById(R.id.endDate);
-        locationText = findViewById(R.id.locationText);
-        descText = findViewById(R.id.descText);
-        submit = findViewById(R.id.submitButton);
+        eventText = findViewById(R.id.eventText2);
+        startTime = findViewById(R.id.startTime2);
+        endTime = findViewById(R.id.endTime2);
+        startDate = findViewById(R.id.startDate2);
+        endDate = findViewById(R.id.endDate2);
+        locationText = findViewById(R.id.locationText2);
+        descText = findViewById(R.id.descText2);
+        submit = findViewById(R.id.submitButton2);
 
-        startDateLayout = findViewById(R.id.startDateLayout);
-        endDateLayout = findViewById(R.id.endDateLayout);
-        startTimeLayout = findViewById(R.id.startTimeLayout);
-        endTimeLayout = findViewById(R.id.endTimeLayout);
+        startDateLayout = findViewById(R.id.startDateLayout2);
+        endDateLayout = findViewById(R.id.endDateLayout2);
+        startTimeLayout = findViewById(R.id.startTimeLayout2);
+        endTimeLayout = findViewById(R.id.endTimeLayout2);
 
         startDateLayout.setError("MM/DD/YYYY"); // show error
         endDateLayout.setError("MM/DD/YYYY"); // show error
@@ -101,7 +97,7 @@ public class editEvents extends AppCompatActivity {
         endTimeLayout.setError("24 Hour Time"); // show error
 
         Intent intent = getIntent();
-        String editID = intent.getStringExtra("editID");
+        editID = intent.getStringExtra("editID");
 
         Task<DocumentSnapshot> eventTask = db.collection("events").document(editID).get();
         eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -180,8 +176,7 @@ public class editEvents extends AppCompatActivity {
             }
 
             // Add a new document into the events collection
-            eventid = db.collection("users").document().getId();
-            db.collection("events").document(eventid)
+            db.collection("events").document(editID)
                     .set(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -201,7 +196,7 @@ public class editEvents extends AppCompatActivity {
             eventData.put("Owner", owner);
 
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
-            db.collection("users").document(userID).collection("myEvents").document(eventid)
+            db.collection("users").document(userID).collection("myEvents").document(editID)
                     .set(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

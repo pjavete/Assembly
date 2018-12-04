@@ -48,6 +48,9 @@
         <activity android:name=".JoinedDisplay"
             android:theme="@style/AppTheme"
             android:label="Joined Events"/>
+        <activity android:name=".editEvents"
+            android:theme="@style/AppTheme"
+            android:label="Edit Event"/>
     </application>
 
 </manifest>
