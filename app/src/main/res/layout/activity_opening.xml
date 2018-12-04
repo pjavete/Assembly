@@ -13,7 +13,7 @@
         android:id="@+id/logo"
         android:layout_width="472dp"
         android:layout_height="256dp"
-        android:src="@drawable/icon"/>
+        android:src="@drawable-xxhdpi/icon"/>
 
     <Button
         android:id="@+id/login"
