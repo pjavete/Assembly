@@ -113,7 +113,7 @@ public class editEvents extends AppCompatActivity {
                     String strDate = dateFormat.format(StartDate);
                     String[] Start = strDate.split(" ");
 
-                    Date EndDate = (Date) eventData.get("Start Date");
+                    Date EndDate = (Date) eventData.get("End Date");
                     String enDate = dateFormat.format(EndDate);
                     String[] End = enDate.split(" ");
 
