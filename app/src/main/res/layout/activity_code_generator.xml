@@ -37,4 +37,14 @@
         android:onClick="emailCode"
         android:text="Email Code"
         android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/doneCode"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:onClick="doneCode"
+        android:text="Done"
+        android:textColor="@android:color/white" />
 </LinearLayout>

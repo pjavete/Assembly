@@ -43,6 +43,11 @@ public class codeGenerator extends AppCompatActivity {
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
     }
 
+    public void doneCode(View view){
+        Intent done = new Intent(this, MyEvents.class);
+        startActivity(done);
+    }
+
     @Override
     public void onBackPressed(){
         Intent editPage = new Intent(this, editEvents.class);

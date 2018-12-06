@@ -213,7 +213,9 @@ public class editEvents extends AppCompatActivity {
                             locationText.getText().clear();
                             descText.getText().clear();
 
-                            startActivity(new Intent(editEvents.this, MyEvents.class));
+                            Intent passcode = new Intent(editEvents.this, codeGenerator.class);
+                            passcode.putExtra("eventCode", editID);
+                            startActivity(passcode);
                             Log.d(TAG, "DocumentSnapshot successfully written!");
                         }
                     })
