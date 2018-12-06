@@ -1,9 +1,12 @@
 package com.example.payton.assembly;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +26,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import static android.support.constraint.Constraints.TAG;
+
 
 
 public class ListAdapter extends BaseAdapter {
@@ -30,11 +38,14 @@ public class ListAdapter extends BaseAdapter {
     private final ArrayList<StringBuffer> Names;
     private final ArrayList<StringBuffer> Desc;
     private final ArrayList<String> eventIDs;
-    FirebaseFirestore db;
+
+    Map<String, Object> eventData;
+    String location;
+    private FirebaseFirestore db;
     FirebaseAuth mAuth;
 
 
-    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc, ArrayList<String> eventIDs){
+    public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc, ArrayList<String> eventIDs) {
         //super(context, R.layout.single_list__item, utilsArrayList);
         this.context = context;
         this.Names = Names;
@@ -89,13 +100,11 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.txtDesc.setText(Desc.get(position));
 
         final String eventID = eventIDs.get(position);
-        viewHolder.imageview.setOnClickListener( new View.OnClickListener()
-        {
+        db = FirebaseFirestore.getInstance();
+        viewHolder.imageview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 final PopupMenu popmenu = new PopupMenu(context, v);
-
                 popmenu.getMenuInflater().inflate(R.menu.popup_menu, popmenu.getMenu());
                 final Menu options = popmenu.getMenu();
 
@@ -132,6 +141,37 @@ public class ListAdapter extends BaseAdapter {
                                         }
                                         Intent deleteReturn = new Intent(context, MainPage.class);
                                         context.startActivity(deleteReturn);
+                                        break;
+                                    case R.id.navigation:
+                                        Task<DocumentSnapshot> navTask = db.collection("events").document(eventID).get();
+                                        navTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot snapshot = task.getResult();
+                                                    eventData = snapshot.getData();
+                                                    location = eventData.get("Location").toString();
+                                                    Uri uri = Uri.parse("geo:0,0?q=" + location);
+                                                    Intent navIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                    //makes it so that it opens up in Google Maps
+                                                    navIntent.setPackage("com.google.android.apps.maps");
+                                                    context.startActivity(navIntent);
+                                                    //ensures that user has Google Maps installed
+                                                    try {
+                                                        context.startActivity(navIntent);
+                                                    } catch (ActivityNotFoundException ex) {
+                                                        try {
+                                                            Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                            context.startActivity(unrestrictedIntent);
+                                                        } catch (ActivityNotFoundException innerEx) {
+                                                            Toast.makeText(context, "Please install Google Maps", Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }
+                                                } else {
+                                                    Log.d(TAG, "Error getting document.", task.getException());
+                                                }
+                                            }
+                                        });
                                         break;
                                     default:
                                         break;

@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +18,7 @@ public class codeGenerator extends AppCompatActivity {
     Button copyButton;
     TextView eventCode;
     String code;
+    Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,6 @@ public class codeGenerator extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("event code", code);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(codeGenerator.this, MyEvents.class));
     }
 
     @Override
@@ -47,5 +48,13 @@ public class codeGenerator extends AppCompatActivity {
         Intent editPage = new Intent(this, editEvents.class);
         editPage.putExtra("editID", code);
         startActivity(editPage);
+    }
+
+    public void emailCode(View view) {
+        Intent message = new Intent(Intent.ACTION_SENDTO);
+        message.setData(Uri.parse("mailto:")); // only email apps should handle this
+        message.putExtra(Intent.EXTRA_SUBJECT, "Group Code for Event");
+        message.putExtra(Intent.EXTRA_TEXT, code);
+        startActivity(message);
     }
 }

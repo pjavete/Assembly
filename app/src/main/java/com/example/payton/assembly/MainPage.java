@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import javax.annotation.Nullable;
+
 
 public class MainPage extends AppCompatActivity {
 
@@ -60,9 +62,15 @@ public class MainPage extends AppCompatActivity {
                 description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
                     StringBuffer titleBuffer = new StringBuffer();
+                    StringBuffer sDateBuffer = new StringBuffer();
+                    StringBuffer eDateBuffer = new StringBuffer();
+                    StringBuffer sTimeBuffer = new StringBuffer();
+                    StringBuffer eTimeBuffer = new StringBuffer();
                     StringBuffer descriptionBuffer = new StringBuffer();
+                    StringBuffer locationBuffer = new StringBuffer();
 
                     titleBuffer.append(snapshot.getString("Event Name"));
+
                     String Details = "Start Date and Time: " + snapshot.get("Start Date").toString() + "\n"
                             + "End Date and Time: " + snapshot.get("End Date").toString() + "\n"
                             + "Location: " + snapshot.getString("Location") + "\n"
@@ -99,6 +107,8 @@ public class MainPage extends AppCompatActivity {
         String userEmail = user.getEmail();
         navUsername.setText(userEmail);
         //this sets the navigation header to the USER ID from firebase
+        Toast.makeText(this, "Welcome "+ userEmail
+                + " :)", Toast.LENGTH_LONG).show();
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

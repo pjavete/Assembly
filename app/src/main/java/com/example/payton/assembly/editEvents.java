@@ -1,6 +1,7 @@
 package com.example.payton.assembly;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -61,8 +62,8 @@ public class editEvents extends AppCompatActivity {
         setContentView(R.layout.edit_events);
 
         submit = (Button)findViewById(R.id.submitButton2);
-        //Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
-        //submit.setTypeface(typefaces);
+        Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        submit.setTypeface(typefaces);
 
 
         db = FirebaseFirestore.getInstance();
