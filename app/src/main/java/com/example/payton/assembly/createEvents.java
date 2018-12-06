@@ -61,7 +61,7 @@ public class createEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
 
-        TextView tv = (TextView) findViewById(R.id.titleView);
+        TextView tv = (TextView) findViewById(R.id.eventView);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
         tv.setTypeface(face);
         submit = (Button)findViewById(R.id.submitButton);

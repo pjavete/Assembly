@@ -17,6 +17,6 @@
         android:icon="@drawable/team"
         android:title="Join Event" />
     <item android:id="@+id/logout"
-        android:icon="@drawable/ic_brightness_high_black_24dp"
+        android:icon="@drawable/logout"
         android:title="Logout"/>
 </menu>

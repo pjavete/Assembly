@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +40,7 @@ public class MainPage extends AppCompatActivity {
     private FirebaseFirestore db;
     private ArrayList<StringBuffer> titles = new ArrayList<>();
     private ArrayList<StringBuffer> description = new ArrayList<>();
+    private ArrayList<String> eventIDs = new ArrayList<>();
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
@@ -47,38 +49,6 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-      
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String userID = user.getUid();
-        display = (ListView) findViewById(R.id.displayUpcomingEvents);
-
-        db.collection("users").document(userID).collection("myEvents").orderBy("Start Date").limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
-                titles.clear();
-                description.clear();
-                for(DocumentSnapshot snapshot : documentSnapshots){
-                    StringBuffer titleBuffer = new StringBuffer();
-                    StringBuffer descriptionBuffer = new StringBuffer();
-
-                    titleBuffer.append(snapshot.getString("Event Name"));
-                    String Details = "Start Date and Time: " + snapshot.get("Start Date").toString() + "\n"
-                            + "End Date and Time: " + snapshot.get("End Date").toString() + "\n"
-                            + "Location: " + snapshot.getString("Location") + "\n"
-                            + snapshot.getString("Description");
-                    descriptionBuffer.append(Details);
-
-                    titles.add(titleBuffer);
-                    description.add(descriptionBuffer);
-                }
-
-                lAdapter = new ListAdapter(getApplicationContext(), titles, description);
-                lAdapter.notifyDataSetChanged();
-                display.setAdapter(lAdapter);
-            }
-        });
 
         //this changes the font
         /*TextView tv = (TextView)findViewById(R.id.EventsTitle);
@@ -108,11 +78,13 @@ public class MainPage extends AppCompatActivity {
                             + snapshot.getString("Description");
                     descriptionBuffer.append(Details);
 
+                    //storing all the eventID
+                    eventIDs.add(snapshot.getId());
                     titles.add(titleBuffer);
                     description.add(descriptionBuffer);
                 }
 
-                lAdapter = new ListAdapter(getApplicationContext(), titles, description);
+                lAdapter = new ListAdapter(getApplicationContext(), titles, description, eventIDs);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }

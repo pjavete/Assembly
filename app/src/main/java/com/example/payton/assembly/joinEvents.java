@@ -61,7 +61,6 @@ public class joinEvents extends AppCompatActivity{
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                 //checks if the user is the owner of the event they are trying to join
-
                 boolean isOwner;
                 if (task.getResult().getData() != null){
                     isOwner = (boolean) task.getResult().getData().get("Owner");
