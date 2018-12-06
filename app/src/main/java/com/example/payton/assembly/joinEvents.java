@@ -200,6 +200,9 @@ public class joinEvents extends AppCompatActivity{
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                toastMaker(1);
+                                                finish();
+                                                startActivity(new Intent(joinEvents.this, MainPage.class));
                                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                                             }
                                         })
@@ -211,12 +214,12 @@ public class joinEvents extends AppCompatActivity{
                                         });
                             } else {
                                 Log.d(TAG, "Error getting document.", task.getException());
+                                finish();
+                                onBackPressed();
                             }
                         }
                     });
-                    toastMaker(1);
-                    finish();
-                    onBackPressed();
+
                 }
             }
         });

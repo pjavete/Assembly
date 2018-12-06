@@ -33,6 +33,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -159,7 +160,7 @@ public class editEvents extends AppCompatActivity {
         } else {
             db = FirebaseFirestore.getInstance();
 
-            Map<String, Object> eventData = new HashMap<>();
+            final Map<String, Object> eventData = new HashMap<>();
             eventData.put("Event Name", eventTitle);
             eventData.put("Location", location);
             eventData.put("Description", description);
@@ -177,7 +178,7 @@ public class editEvents extends AppCompatActivity {
 
             // Add a new document into the events collection
             db.collection("events").document(editID)
-                    .set(eventData)
+                    .update(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -190,6 +191,18 @@ public class editEvents extends AppCompatActivity {
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
+
+            Task<DocumentSnapshot> eventTask = db.collection("events").document(editID).get();
+            eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot snapshot = task.getResult();
+                    List<String> UserList = (List<String>) snapshot.getData().get("Users");
+                    for(String ListUserID: UserList){
+                        db.collection("users").document(ListUserID).collection("myEvents").document(editID).update(eventData);
+                    }
+                }
+            });
 
             //adds the owner boolean set to true to the event before adding it to myEvents
             boolean owner = true;
@@ -197,10 +210,21 @@ public class editEvents extends AppCompatActivity {
 
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
             db.collection("users").document(userID).collection("myEvents").document(editID)
-                    .set(eventData)
+                    .update(eventData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            //clear all fields
+                            eventText.getText().clear();
+                            startDate.getText().clear();
+                            endDate.getText().clear();
+                            startTime.getText().clear();
+                            endTime.getText().clear();
+                            locationText.getText().clear();
+                            descText.getText().clear();
+
+                            finish();
+                            startActivity(new Intent(editEvents.this, MainPage.class));
                             Log.d(TAG, "DocumentSnapshot successfully written!");
                         }
                     })
@@ -210,19 +234,7 @@ public class editEvents extends AppCompatActivity {
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
-
-            //clear all fields
-            eventText.getText().clear();
-            startDate.getText().clear();
-            endDate.getText().clear();
-            startTime.getText().clear();
-            endTime.getText().clear();
-            locationText.getText().clear();
-            descText.getText().clear();
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-            finish();
-
-            startActivity(new Intent(editEvents.this, MyEvents.class));
         }
     }
 

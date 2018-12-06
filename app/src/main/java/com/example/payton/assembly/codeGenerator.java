@@ -40,7 +40,7 @@ public class codeGenerator extends AppCompatActivity {
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
         finish();
-        onBackPressed();
+        startActivity(new Intent(codeGenerator.this, MainPage.class));
         //:(((
     }
 }
