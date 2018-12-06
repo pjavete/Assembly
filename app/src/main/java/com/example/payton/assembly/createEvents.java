@@ -89,7 +89,102 @@ public class createEvents extends AppCompatActivity {
         startTimeLayout.setError("24 Hour Time"); // show error
         endTimeLayout.setError("24 Hour Time"); // show error
 
+        dl = (DrawerLayout)findViewById(R.id.activity_main_page);
+        t = new ActionBarDrawerToggle(this, dl,R.string.Open,R.string.Close);
+
+        dl.addDrawerListener(t);
+        t.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //this sets the navigation header to the USER ID from firebase
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nv);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.navusername);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        navUsername.setTypeface(face);
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid();
+        String userEmail = user.getEmail();
+        navUsername.setText(userEmail);
+        //this sets the navigation header to the USER ID from firebase
+
+        nv = (NavigationView)findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.gohome:
+                        finish();
+                        Intent homepage_redirect = new Intent(createEvents.this, MainPage.class);
+                        startActivity(homepage_redirect);
+                        return true;
+                    case R.id.myevents:
+                        Intent myevents_redirect = new Intent(createEvents.this, MyEvents.class);
+                        startActivity(myevents_redirect);
+                        return true;
+                    case R.id.createEvent:
+                        Intent createEvent_redirect = new Intent(createEvents.this, createEvents.class);
+                        startActivity(createEvent_redirect);
+                        return true;
+                    case R.id.joinEvent:
+                        Intent joinEvent_redirect = new Intent(createEvents.this, joinEvents.class);
+                        startActivity(joinEvent_redirect);
+                        return true;
+                    case R.id.logout:
+                        MyCustomAlertDialog();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(t.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void MyCustomAlertDialog(){
+        final Dialog myDialog = new Dialog(createEvents.this);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        myDialog.setContentView(R.layout.customdialog);
+        myDialog.setTitle("My Custom Dialog");
+        Button hello = (Button)myDialog.findViewById(R.id.hello);
+        Button close = (Button)myDialog.findViewById(R.id.close);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        hello.setTypeface(typeface);
+        close.setTypeface(typeface);
+        hello.setEnabled(true);
+        close.setEnabled(true);
+
+        hello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                fAuth.signOut();
+                Intent signout_redirect = new Intent(createEvents.this, opening.class);
+                startActivity(signout_redirect);
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.cancel();
+            }
+        });
+
+        myDialog.show();
+    }
+
 
     //tests to make sure all fields have something filled out (no empty)
     protected boolean hasErrors(String title, String startDate, String endDate, String startTime, String endTime, String location, String description) {
