@@ -54,7 +54,7 @@ public class Delete {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot snapshot = task.getResult();
                 List<String> UserList = (List<String>) snapshot.getData().get("Users");
-                UserList.remove(user.getEmail());
+                UserList.remove(user.getUid());
                 reference.update("Users", UserList);
                 return;
             }

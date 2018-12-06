@@ -197,6 +197,7 @@ public class joinEvents extends AppCompatActivity{
                                 //adds the owner boolean set to true to the event before adding it to myEvents
                                 boolean owner = false;
                                 eventData.put("Owner", owner);
+                                eventData.remove("Users");
 
                                 //puts the retrieved event into the users personal collection of joined events
                                 db.collection("users").document(userID).collection("myEvents").document(codeEvent)
