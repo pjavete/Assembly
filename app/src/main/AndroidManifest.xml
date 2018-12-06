@@ -51,6 +51,10 @@
         <activity android:name=".editEvents"
             android:theme="@style/AppTheme"
             android:label="Edit Event"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

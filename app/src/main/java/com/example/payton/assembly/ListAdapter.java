@@ -3,6 +3,7 @@ package com.example.payton.assembly;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class ListAdapter extends BaseAdapter {
     private final ArrayList<String> eventIDs;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
+
 
     public ListAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc, ArrayList<String> eventIDs){
         //super(context, R.layout.single_list__item, utilsArrayList);

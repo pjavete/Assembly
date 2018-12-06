@@ -53,12 +53,6 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        //this changes the font
-        /*TextView tv = (TextView)findViewById(R.id.EventsTitle);
-        Typeface faces = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
-        tv.setTypeface(faces);*/
-        //this changes the font
-      
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
