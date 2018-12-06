@@ -133,13 +133,9 @@ public class ListAdapter extends BaseAdapter {
                                         context.startActivity(editPage);
                                         break;
                                     case R.id.destroy:
-                                        Delete delete = new Delete();
-                                        if (isOwner) {
-                                            delete.deleteEvent(userID, eventID);
-                                        } else {
-                                            delete.leaveEvent(userID, eventID);
-                                        }
-                                        Intent deleteReturn = new Intent(context, MainPage.class);
+                                        Intent deleteReturn = new Intent(context, Delete.class);
+                                        deleteReturn.putExtra("userID", userID);
+                                        deleteReturn.putExtra("eventID", eventID);
                                         context.startActivity(deleteReturn);
                                         break;
                                     case R.id.navigation:
