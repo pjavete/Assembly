@@ -21,7 +21,8 @@
         <activity
             android:name=".opening"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="Assembly">
+            android:label="Assembly"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,30 +30,44 @@
         </activity>
         <activity android:name=".createEvents"
             android:theme="@style/AppTheme"
-            android:label="Create Events"/>
+            android:label="Create Events"
+            android:noHistory="true"/>
         <activity android:name=".joinEvents"
             android:theme="@style/AppTheme"
-            android:label="Join Events"/>
-        <activity android:name=".codeGenerator"/>
+            android:label="Join Events"
+            android:noHistory="true"/>
+        <activity android:name=".codeGenerator"
+            android:noHistory="true"/>
         <activity android:name=".login"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
         <activity android:name=".signup"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
         <activity android:name=".MyEvents"
             android:theme="@style/AppTheme"
-            android:label="My Events"/>
+            android:label="My Events"
+            android:noHistory="true"/>
         <activity android:name=".MainPage"
             android:theme="@style/AppTheme"
-            android:label="Upcoming Events"/>
+            android:label="Upcoming Events"
+            android:noHistory="true"/>
         <activity android:name=".CreatedDisplay"
             android:theme="@style/AppTheme"
-            android:label="Created Events" />
+            android:label="Created Events"
+            android:noHistory="true"/>
         <activity android:name=".JoinedDisplay"
             android:theme="@style/AppTheme"
-            android:label="Joined Events"/>
+            android:label="Joined Events"
+            android:noHistory="true"/>
         <activity android:name=".editEvents"
             android:theme="@style/AppTheme"
-            android:label="Edit Event"/>
+            android:label="Edit Event"
+            android:noHistory="true"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@font/josefin_sans" />
     </application>
 
 </manifest>

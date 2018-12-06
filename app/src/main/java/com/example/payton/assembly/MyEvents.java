@@ -1,13 +1,13 @@
 package com.example.payton.assembly;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -97,7 +97,6 @@ public class MyEvents extends AppCompatActivity {
                         Intent intent2 = new Intent(MyEvents.this, JoinedDisplay.class);
                         startActivity(intent2);
                         return true;
-
                     default:
                         return true;
                 }
@@ -116,5 +115,11 @@ public class MyEvents extends AppCompatActivity {
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+        public void onBackPressed(){
+        Intent intent = new Intent(MyEvents.this, MainPage.class);
+        startActivity(intent);
     }
 }

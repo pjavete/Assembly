@@ -3,14 +3,13 @@ package com.example.payton.assembly;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import javax.annotation.Nullable;
+
 
 public class MainPage extends AppCompatActivity {
 
@@ -49,7 +48,7 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-      
+
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -119,19 +118,22 @@ public class MainPage extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.gohome:
-                        finish();
+
                         Intent homepage_redirect = new Intent(MainPage.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
                     case R.id.myevents:
+
                         Intent myevents_redirect = new Intent(MainPage.this, MyEvents.class);
                         startActivity(myevents_redirect);
                         return true;
                     case R.id.createEvent:
+
                         Intent createEvent_redirect = new Intent(MainPage.this, createEvents.class);
                         startActivity(createEvent_redirect);
                         return true;
                     case R.id.joinEvent:
+
                         Intent joinEvent_redirect = new Intent(MainPage.this, joinEvents.class);
                         startActivity(joinEvent_redirect);
                         return true;
@@ -172,6 +174,7 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth fAuth = FirebaseAuth.getInstance();
                 fAuth.signOut();
+
                 Intent signout_redirect = new Intent(MainPage.this, opening.class);
                 startActivity(signout_redirect);
             }

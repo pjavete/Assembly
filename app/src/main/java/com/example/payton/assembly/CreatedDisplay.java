@@ -1,21 +1,24 @@
 package com.example.payton.assembly;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -29,6 +32,9 @@ public class CreatedDisplay extends AppCompatActivity {
     private ArrayList<StringBuffer> titles = new ArrayList<>();
     private ArrayList<StringBuffer> description = new ArrayList<>();
     private ArrayList<String> eventIDs = new ArrayList<>();
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
 
 
     @Override
@@ -72,7 +78,52 @@ public class CreatedDisplay extends AppCompatActivity {
                 display.setAdapter(lAdapter);
             }
         });
+        dl = (DrawerLayout) findViewById(R.id.activity_my_events);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
+
+        dl.addDrawerListener(t);
+        t.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        nv = (NavigationView) findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.created:
+                        Intent intent = new Intent(CreatedDisplay.this, CreatedDisplay.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.joined:
+                        Intent intent2 = new Intent(CreatedDisplay.this, JoinedDisplay.class);
+                        startActivity(intent2);
+                        return true;
+
+                    default:
+                        return true;
+                }
+
+
+            }
+        });
+
+
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (t.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(CreatedDisplay.this, MyEvents.class);
+        startActivity(intent);
+    }
 }

@@ -25,11 +25,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class createEvents extends AppCompatActivity {
@@ -61,9 +62,6 @@ public class createEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_events);
 
-        TextView tv = (TextView) findViewById(R.id.eventView);
-        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
-        tv.setTypeface(face);
         submit = (Button)findViewById(R.id.submitButton);
         Typeface typefaces = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
         submit.setTypeface(typefaces);
@@ -90,7 +88,101 @@ public class createEvents extends AppCompatActivity {
         startTimeLayout.setError("24 Hour Time"); // show error
         endTimeLayout.setError("24 Hour Time"); // show error
 
+        dl = (DrawerLayout)findViewById(R.id.activity_main_page);
+        t = new ActionBarDrawerToggle(this, dl,R.string.Open,R.string.Close);
+
+        dl.addDrawerListener(t);
+        t.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //this sets the navigation header to the USER ID from firebase
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nv);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.navusername);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        navUsername.setTypeface(face);
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid();
+        String userEmail = user.getEmail();
+        navUsername.setText(userEmail);
+        //this sets the navigation header to the USER ID from firebase
+
+        nv = (NavigationView)findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.gohome:
+                        Intent homepage_redirect = new Intent(createEvents.this, MainPage.class);
+                        startActivity(homepage_redirect);
+                        return true;
+                    case R.id.myevents:
+                        Intent myevents_redirect = new Intent(createEvents.this, MyEvents.class);
+                        startActivity(myevents_redirect);
+                        return true;
+                    case R.id.createEvent:
+                        Intent createEvent_redirect = new Intent(createEvents.this, createEvents.class);
+                        startActivity(createEvent_redirect);
+                        return true;
+                    case R.id.joinEvent:
+                        Intent joinEvent_redirect = new Intent(createEvents.this, joinEvents.class);
+                        startActivity(joinEvent_redirect);
+                        return true;
+                    case R.id.logout:
+                        MyCustomAlertDialog();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(t.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void MyCustomAlertDialog(){
+        final Dialog myDialog = new Dialog(createEvents.this);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        myDialog.setContentView(R.layout.customdialog);
+        myDialog.setTitle("My Custom Dialog");
+        Button hello = (Button)myDialog.findViewById(R.id.hello);
+        Button close = (Button)myDialog.findViewById(R.id.close);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/thicc.ttf");
+        hello.setTypeface(typeface);
+        close.setTypeface(typeface);
+        hello.setEnabled(true);
+        close.setEnabled(true);
+
+        hello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                fAuth.signOut();
+                Intent signout_redirect = new Intent(createEvents.this, opening.class);
+                startActivity(signout_redirect);
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.cancel();
+            }
+        });
+
+        myDialog.show();
+    }
+
 
     //tests to make sure all fields have something filled out (no empty)
     protected boolean hasErrors(String title, String startDate, String endDate, String startTime, String endTime, String location, String description) {
@@ -120,10 +212,13 @@ public class createEvents extends AppCompatActivity {
         } else {
             db = FirebaseFirestore.getInstance();
 
+            List<String> UserList = new ArrayList<>();
+
             Map<String, Object> eventData = new HashMap<>();
             eventData.put("Event Name", eventTitle);
             eventData.put("Location", location);
             eventData.put("Description", description);
+            eventData.put("Users", UserList);
 
             try {
                 sDate = sDate + " " + sTime;
@@ -156,6 +251,7 @@ public class createEvents extends AppCompatActivity {
             //adds the owner boolean set to true to the event before adding it to myEvents
             boolean owner = true;
             eventData.put("Owner", owner);
+            eventData.remove("Users");
 
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
             db.collection("users").document(userID).collection("myEvents").document(eventid)
@@ -164,6 +260,19 @@ public class createEvents extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
+                            //clear all fields
+                            eventText.getText().clear();
+                            startDate.getText().clear();
+                            endDate.getText().clear();
+                            startTime.getText().clear();
+                            endTime.getText().clear();
+                            locationText.getText().clear();
+                            descText.getText().clear();
+
+                            //pass the new event's id to code generator
+                            passcode = new Intent(createEvents.this, codeGenerator.class);
+                            passcode.putExtra("eventCode", eventid);
+                            startActivity(passcode);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -172,25 +281,13 @@ public class createEvents extends AppCompatActivity {
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
-
-            //clear all fields
-            eventText.getText().clear();
-            startDate.getText().clear();
-            endDate.getText().clear();
-            startTime.getText().clear();
-            endTime.getText().clear();
-            locationText.getText().clear();
-            descText.getText().clear();
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-            finish();
-
-            //pass the new event's id to code generator
-            passcode = new Intent(createEvents.this, codeGenerator.class);
-            passcode.putExtra("eventCode", eventid);
-            startActivity(passcode);
-
-
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(createEvents.this, MainPage.class);
+        startActivity(intent);
+    }
 }

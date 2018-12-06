@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 public class codeGenerator extends AppCompatActivity {
     //variables to be used through different
     Button copyButton;
@@ -43,7 +41,13 @@ public class codeGenerator extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("event code", code);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
-        //:(((
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent editPage = new Intent(this, editEvents.class);
+        editPage.putExtra("editID", code);
+        startActivity(editPage);
     }
 
     public void emailCode(View view) {
@@ -52,6 +56,5 @@ public class codeGenerator extends AppCompatActivity {
         message.putExtra(Intent.EXTRA_SUBJECT, "Group Code for Event");
         message.putExtra(Intent.EXTRA_TEXT, code);
         startActivity(message);
-
     }
 }
