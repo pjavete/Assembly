@@ -28,8 +28,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class createEvents extends AppCompatActivity {
@@ -117,10 +119,13 @@ public class createEvents extends AppCompatActivity {
         } else {
             db = FirebaseFirestore.getInstance();
 
+            List<String> UserList = new ArrayList<>();
+
             Map<String, Object> eventData = new HashMap<>();
             eventData.put("Event Name", eventTitle);
             eventData.put("Location", location);
             eventData.put("Description", description);
+            eventData.put("Users", UserList);
 
             try {
                 sDate = sDate + " " + sTime;

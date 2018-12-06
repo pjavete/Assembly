@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
 import java.util.Map;
 
 public class joinEvents extends AppCompatActivity{
@@ -79,6 +80,10 @@ public class joinEvents extends AppCompatActivity{
                             if (task.isSuccessful()) {
                                 DocumentSnapshot snapshot = task.getResult();
                                 eventData = snapshot.getData();
+
+                                List<String> UserList = (List<String>) eventData.get("Users");
+                                UserList.add(user.getEmail());
+                                db.collection("events").document(codeEvent).update("Users", UserList);
 
                                 //adds the owner boolean set to true to the event before adding it to myEvents
                                 boolean owner = false;

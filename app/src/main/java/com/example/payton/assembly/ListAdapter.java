@@ -109,7 +109,8 @@ public class ListAdapter extends BaseAdapter {
                                 mAuth = FirebaseAuth.getInstance();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userID = user.getUid();
-                                
+                                Delete delete = new Delete();
+                                delete.leaveEvent(userID, eventID);
 
                                 break;
                             default:
