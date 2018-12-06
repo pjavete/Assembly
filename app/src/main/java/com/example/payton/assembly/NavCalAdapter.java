@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -41,7 +42,13 @@ public class NavCalAdapter extends BaseAdapter {
     String TAG = "newEvent";
     private FirebaseFirestore db;
     Map<String, Object> eventData;
+    String eventName;
+    String startDate;
+    String endDate;
+    String startTime;
+    String endTime;
     String location;
+    String description;
 
     public NavCalAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc, ArrayList<String> eventIDs){
         //super(context, R.layout.single_list__item, utilsArrayList);
@@ -103,7 +110,7 @@ public class NavCalAdapter extends BaseAdapter {
             public void onClick(View v)
             {
                 final PopupMenu popmenu = new PopupMenu(context, v);
-                popmenu.getMenuInflater().inflate(R.menu.popup_menu, popmenu.getMenu());
+                popmenu.getMenuInflater().inflate(R.menu.navcal_menu, popmenu.getMenu());
 
                 popmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
                 {
@@ -118,33 +125,34 @@ public class NavCalAdapter extends BaseAdapter {
                                             DocumentSnapshot snapshot = task.getResult();
                                             eventData = snapshot.getData();
 
-                                            Date StartDate = (Date) eventData.get("Start Date");
                                             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                                            Date StartDate = (Date) eventData.get("Start Date");
                                             String strDate = dateFormat.format(StartDate);
-                                            String[] Start = strDate.split(" ");
 
-                                            Date EndDate = (Date) eventData.get("Start Date");
+                                            Date EndDate = (Date) eventData.get("End Date");
                                             String enDate = dateFormat.format(EndDate);
-                                            String[] End = enDate.split(" ");
 
-                                            eventText.setText(eventData.get("Event Name").toString());
-                                            startTime.setText(Start[1]);
-                                            endTime.setText(End[1]);
-                                            startDate.setText(Start[0]);
-                                            endDate.setText(End[0]);
-                                            locationText.setText(eventData.get("Location").toString());
-                                            descText.setText(eventData.get("Description").toString());
 
+                                            eventName = eventData.get("Event Name").toString();
+                                            location = eventData.get("Location").toString();
+                                            description = eventData.get("Description").toString();
+
+                                            Calendar cal = Calendar.getInstance();
+                                            Intent intent = new Intent(Intent.ACTION_EDIT)
+                                                    .setData(CalendarContract.Events.CONTENT_URI)
+                                                    .putExtra(CalendarContract.Events.TITLE, eventName)
+                                                    .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
+                                                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, strDate)
+                                                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, enDate)
+                                                    .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
+                                                    .putExtra(CalendarContract.Events.DESCRIPTION, description);
+                                            intent.setType("vnd.android.cursor.item/event");
+                                            context.startActivity(intent);
                                         } else {
                                             Log.d(TAG, "Error getting document.", task.getException());
                                         }
                                     }
                                 });
-
-                                Calendar cal = Calendar.getInstance();
-                                Intent intent = new Intent(Intent.ACTION_EDIT);
-                                intent.setType("vnd.android.cursor.item/event");
-                                context.startActivity(intent);
                                 break;
                             case R.id.navigation:
                                 Task<DocumentSnapshot> navTask = db.collection("events").document(navcalID).get();
@@ -155,34 +163,33 @@ public class NavCalAdapter extends BaseAdapter {
                                             DocumentSnapshot snapshot = task.getResult();
                                             eventData = snapshot.getData();
                                             location = eventData.get("Location").toString();
+                                            Uri uri = Uri.parse("geo:0,0?q=" + location);
+                                            Intent navIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                            //makes it so that it opens up in Google Maps
+                                            navIntent.setPackage("com.google.android.apps.maps");
+                                            context.startActivity(navIntent);
+                                            //ensures that user has Google Maps installed
+                                            try
+                                            {
+                                                context.startActivity(navIntent);
+                                            }
+                                            catch(ActivityNotFoundException ex)
+                                            {
+                                                try
+                                                {
+                                                    Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                    context.startActivity(unrestrictedIntent);
+                                                }
+                                                catch(ActivityNotFoundException innerEx)
+                                                {
+                                                    Toast.makeText(context, "Please install Google Maps", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
                                         } else {
                                             Log.d(TAG, "Error getting document.", task.getException());
                                         }
                                     }
                                 });
-
-                                String uri = String.format(Locale.ENGLISH, "geo:0,0?q=address", location);
-                                Intent navIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                //makes it so that it opens up in Google Maps
-                                navIntent.setPackage("com.google.android.apps.maps");
-                                context.startActivity(navIntent);
-                                //ensures that user has Google Maps installed
-                                try
-                                {
-                                    context.startActivity(navIntent);
-                                }
-                                catch(ActivityNotFoundException ex)
-                                {
-                                    try
-                                    {
-                                        Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                        context.startActivity(unrestrictedIntent);
-                                    }
-                                    catch(ActivityNotFoundException innerEx)
-                                    {
-                                        Toast.makeText(context, "Please install Google Maps", Toast.LENGTH_LONG).show();
-                                    }
-                                }
                                 break;
                             default:
                                 break;
