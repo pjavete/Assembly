@@ -15,6 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +103,13 @@ public class ListAdapter extends BaseAdapter {
                                 context.startActivity(editPage);
                                 break;
                             case R.id.destroy:
-
+                                FirebaseFirestore db;
+                                FirebaseAuth mAuth;
+                                db = FirebaseFirestore.getInstance();
+                                mAuth = FirebaseAuth.getInstance();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                String userID = user.getUid();
+                                
 
                                 break;
                             default:
