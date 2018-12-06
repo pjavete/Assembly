@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 public class MainPage extends AppCompatActivity {
 
     ListView display;
-    ListAdapter lAdapter;
+    NavCalAdapter lAdapter;
     String TAG = "MyEvents";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -49,12 +49,6 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-
-        //this changes the font
-        /*TextView tv = (TextView)findViewById(R.id.EventsTitle);
-        Typeface faces = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
-        tv.setTypeface(faces);*/
-        //this changes the font
       
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -69,9 +63,15 @@ public class MainPage extends AppCompatActivity {
                 description.clear();
                 for(DocumentSnapshot snapshot : documentSnapshots){
                     StringBuffer titleBuffer = new StringBuffer();
+                    StringBuffer sDateBuffer = new StringBuffer();
+                    StringBuffer eDateBuffer = new StringBuffer();
+                    StringBuffer sTimeBuffer = new StringBuffer();
+                    StringBuffer eTimeBuffer = new StringBuffer();
                     StringBuffer descriptionBuffer = new StringBuffer();
+                    StringBuffer locationBuffer = new StringBuffer();
 
                     titleBuffer.append(snapshot.getString("Event Name"));
+
                     String Details = "Start Date and Time: " + snapshot.get("Start Date").toString() + "\n"
                             + "End Date and Time: " + snapshot.get("End Date").toString() + "\n"
                             + "Location: " + snapshot.getString("Location") + "\n"
@@ -84,7 +84,7 @@ public class MainPage extends AppCompatActivity {
                     description.add(descriptionBuffer);
                 }
 
-                lAdapter = new ListAdapter(getApplicationContext(), titles, description, eventIDs);
+                lAdapter = new NavCalAdapter(getApplicationContext(), titles, description, eventIDs);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }
@@ -108,6 +108,8 @@ public class MainPage extends AppCompatActivity {
         String userEmail = user.getEmail();
         navUsername.setText(userEmail);
         //this sets the navigation header to the USER ID from firebase
+        Toast.makeText(this, "Welcome "+ userEmail
+                + " :)", Toast.LENGTH_LONG).show();
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

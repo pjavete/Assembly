@@ -9,22 +9,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-      
+
         <ListView
             android:id="@+id/displayAllEvents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-      
+
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/nv"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/events_menu"
         android:layout_gravity="start"
         app:headerLayout="@layout/menu_header"
-        android:id="@+id/nv">
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/events_menu"></android.support.design.widget.NavigationView>
 
 
 </android.support.v4.widget.DrawerLayout>
