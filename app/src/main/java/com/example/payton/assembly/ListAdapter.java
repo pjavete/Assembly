@@ -15,8 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -108,9 +112,22 @@ public class ListAdapter extends BaseAdapter {
                                 db = FirebaseFirestore.getInstance();
                                 mAuth = FirebaseAuth.getInstance();
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                String userID = user.getUid();
-                                Delete delete = new Delete();
-                                delete.leaveEvent(userID, eventID);
+                                final String userID = user.getUid();
+
+                                Task<DocumentSnapshot> eventTask = db.collection("users").document(userID).collection("myEvents").document(eventID).get();
+                                eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        DocumentSnapshot snapshot = task.getResult();
+                                        boolean isOwner = (boolean) snapshot.getData().get("Owner");
+                                        Delete delete = new Delete();
+                                        if(isOwner){
+                                            delete.deleteEvent(userID, eventID);
+                                        } else {
+                                            delete.leaveEvent(userID, eventID);
+                                        }
+                                    }
+                                });
 
                                 break;
                             default:

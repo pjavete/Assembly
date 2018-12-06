@@ -82,7 +82,7 @@ public class joinEvents extends AppCompatActivity{
                                 eventData = snapshot.getData();
 
                                 List<String> UserList = (List<String>) eventData.get("Users");
-                                UserList.add(user.getEmail());
+                                UserList.add(user.getUid());
                                 db.collection("events").document(codeEvent).update("Users", UserList);
 
                                 //adds the owner boolean set to true to the event before adding it to myEvents
