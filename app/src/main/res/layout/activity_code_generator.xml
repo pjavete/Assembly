@@ -13,16 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/event_code"
-        android:textSize="24sp" />
+        android:text="Event Code"
+        android:textSize="24sp"
+        android:theme="@style/MyEditText" />
 
     <Button
         android:id="@+id/copyButton"
-        android:layout_width="match_parent"
+        android:layout_width="104dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@drawable/button_background"
         android:gravity="center"
         android:onClick="copyCode"
         android:text="@string/copy"
         android:textColor="@android:color/white" />
+
 </LinearLayout>

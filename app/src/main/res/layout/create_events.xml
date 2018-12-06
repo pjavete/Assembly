@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,54 +16,74 @@
     tools:context=".createEvents">
 
     <TextView
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create"
-        android:textSize="32sp" />
-
-    <TextView
         android:id="@+id/eventView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        app:fontFamily="@font/josefin_sans" />
 
-    <EditText
-        android:id="@+id/eventText"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        app:hintTextAppearance="@style/MyHintText" >
+        <EditText
+            android:id="@+id/eventText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Event Name"
+            android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/dateView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        app:fontFamily="@font/josefin_sans" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/startDate"
-            android:layout_width="187dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/startDateLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Start Date"
-            android:inputType="date" />
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintText">
 
-        <EditText
-            android:id="@+id/endDate"
-            android:layout_width="131dp"
+            <EditText
+                android:id="@+id/startDate"
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Start Date"
+                android:inputType="date"
+                android:theme="@style/MyEditText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/endDateLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="End Date"
-            android:inputType="date" />
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintText">
+
+            <EditText
+                android:id="@+id/endDate"
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="End Date"
+                android:inputType="date"
+                android:theme="@style/MyEditText" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <TextView
@@ -63,29 +91,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Time"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        app:fontFamily="@font/josefin_sans" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/startTime"
-            android:layout_width="187dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/startTimeLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Start Time"
-            android:inputType="time" />
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintText">
 
-        <EditText
-            android:id="@+id/endTime"
-            android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/startTime"
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Start Time"
+                android:inputType="time"
+                android:theme="@style/MyEditText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/endTimeLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="End Time"
-            android:inputType="time" />
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintText">
+
+            <EditText
+                android:id="@+id/endTime"
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="End Time"
+                android:inputType="time"
+                android:theme="@style/MyEditText" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <TextView
@@ -93,35 +140,73 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Location"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        app:fontFamily="@font/josefin_sans" />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/MyHintText" >
     <EditText
         android:id="@+id/locationText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress"
+        android:hint="Address of the Event"
+        android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/descView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Description"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        android:theme="@style/MyEditText"
+        app:fontFamily="@font/josefin_sans" />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/MyHintText" >
     <EditText
         android:id="@+id/descText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textAutoCorrect|textMultiLine" />
+        android:inputType="textMultiLine"
+        android:hint="Enter a description of the event here:"
+        android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
         android:onClick="submit"
-        android:text="Submit" />
-
-
+        android:text="Assemble!" />
 </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/navigation_menu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:orientation="vertical">
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
+
+
+</android.support.v4.widget.DrawerLayout>

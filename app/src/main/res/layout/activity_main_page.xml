@@ -11,17 +11,10 @@
         android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/EventsTitle"
+        <ListView
+            android:id="@+id/displayUpcomingEvents"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="0dp"
-            android:gravity="center"
-            android:text="Upcoming Events"
-            android:textColor="@color/colorAccent"
-            android:textSize="50dp" />
+            android:layout_height="wrap_content" />
 
 
     </RelativeLayout>
@@ -33,6 +26,14 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/navigation_menu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:orientation="vertical">
+        </LinearLayout>
 
     </android.support.design.widget.NavigationView>
 
