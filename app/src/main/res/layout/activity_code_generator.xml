@@ -8,6 +8,7 @@
     android:gravity="center_vertical|center_horizontal"
     tools:context=".codeGenerator">
 
+
     <TextView
         android:id="@+id/eventCode"
         android:layout_width="match_parent"
@@ -26,5 +27,25 @@
         android:onClick="copyCode"
         android:text="@string/copy"
         android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:onClick="addCalendar"
+        android:text="Add to Calendar"
+        android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/emailbutton"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:onClick="emailCode"
+        android:text="Email Code"
+        android:textColor="@android:color/white" />
+
 
 </LinearLayout>

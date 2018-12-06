@@ -57,6 +57,8 @@ public class MainPage extends AppCompatActivity {
         Typeface faces = Typeface.createFromAsset(getAssets(), "fonts/light.ttf");
         tv.setTypeface(faces);*/
         //this changes the font
+
+
       
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -108,6 +110,8 @@ public class MainPage extends AppCompatActivity {
         String userEmail = user.getEmail();
         navUsername.setText(userEmail);
         //this sets the navigation header to the USER ID from firebase
+        Toast.makeText(this, "Welcome "+ userEmail
+                + " :)", Toast.LENGTH_LONG).show();
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

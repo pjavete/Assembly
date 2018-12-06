@@ -185,6 +185,8 @@ public class createEvents extends AppCompatActivity {
             passcode = new Intent(createEvents.this, codeGenerator.class);
             passcode.putExtra("eventCode", eventid);
             startActivity(passcode);
+
+
         }
     }
 
