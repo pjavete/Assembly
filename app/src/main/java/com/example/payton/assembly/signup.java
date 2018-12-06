@@ -95,7 +95,7 @@ public class signup extends AppCompatActivity {
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
-            finish();
+
             Intent homepage_redirect = new Intent(signup.this, MainPage.class);
             startActivity(homepage_redirect);
         } else {
@@ -107,9 +107,9 @@ public class signup extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+
         Intent intent=new Intent(signup.this,opening.class);
         startActivity(intent);
-        finish();
     }
 
 }

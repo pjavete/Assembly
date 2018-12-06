@@ -25,7 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,7 +116,6 @@ public class createEvents extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.gohome:
-                        finish();
                         Intent homepage_redirect = new Intent(createEvents.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
@@ -253,6 +251,7 @@ public class createEvents extends AppCompatActivity {
             //adds the owner boolean set to true to the event before adding it to myEvents
             boolean owner = true;
             eventData.put("Owner", owner);
+            eventData.remove("Users");
 
             //adds new subcollection into users/userID called createdEvents and puts the new event in the collection
             db.collection("users").document(userID).collection("myEvents").document(eventid)
@@ -261,6 +260,19 @@ public class createEvents extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
+                            //clear all fields
+                            eventText.getText().clear();
+                            startDate.getText().clear();
+                            endDate.getText().clear();
+                            startTime.getText().clear();
+                            endTime.getText().clear();
+                            locationText.getText().clear();
+                            descText.getText().clear();
+
+                            //pass the new event's id to code generator
+                            passcode = new Intent(createEvents.this, codeGenerator.class);
+                            passcode.putExtra("eventCode", eventid);
+                            startActivity(passcode);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -269,23 +281,13 @@ public class createEvents extends AppCompatActivity {
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
-
-            //clear all fields
-            eventText.getText().clear();
-            startDate.getText().clear();
-            endDate.getText().clear();
-            startTime.getText().clear();
-            endTime.getText().clear();
-            locationText.getText().clear();
-            descText.getText().clear();
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-            finish();
-
-            //pass the new event's id to code generator
-            passcode = new Intent(createEvents.this, codeGenerator.class);
-            passcode.putExtra("eventCode", eventid);
-            startActivity(passcode);
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(createEvents.this, MainPage.class);
+        startActivity(intent);
+    }
 }

@@ -3,12 +3,11 @@ package com.example.payton.assembly;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -84,19 +83,22 @@ public class joinEvents extends AppCompatActivity{
                 switch(id)
                 {
                     case R.id.gohome:
-                        finish();
+
                         Intent homepage_redirect = new Intent(joinEvents.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
                     case R.id.myevents:
+
                         Intent myevents_redirect = new Intent(joinEvents.this, MyEvents.class);
                         startActivity(myevents_redirect);
                         return true;
                     case R.id.createEvent:
+
                         Intent createEvent_redirect = new Intent(joinEvents.this, createEvents.class);
                         startActivity(createEvent_redirect);
                         return true;
                     case R.id.joinEvent:
+
                         Intent joinEvent_redirect = new Intent(joinEvents.this, joinEvents.class);
                         startActivity(joinEvent_redirect);
                         return true;
@@ -137,6 +139,7 @@ public class joinEvents extends AppCompatActivity{
             public void onClick(View view) {
                 FirebaseAuth fAuth = FirebaseAuth.getInstance();
                 fAuth.signOut();
+
                 Intent signout_redirect = new Intent(joinEvents.this, opening.class);
                 startActivity(signout_redirect);
             }
@@ -193,6 +196,7 @@ public class joinEvents extends AppCompatActivity{
                                 //adds the owner boolean set to true to the event before adding it to myEvents
                                 boolean owner = false;
                                 eventData.put("Owner", owner);
+                                eventData.remove("Users");
 
                                 //puts the retrieved event into the users personal collection of joined events
                                 db.collection("users").document(userID).collection("myEvents").document(codeEvent)
@@ -200,6 +204,8 @@ public class joinEvents extends AppCompatActivity{
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                toastMaker(1);
+                                                startActivity(new Intent(joinEvents.this, MyEvents.class));
                                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                                             }
                                         })
@@ -211,12 +217,12 @@ public class joinEvents extends AppCompatActivity{
                                         });
                             } else {
                                 Log.d(TAG, "Error getting document.", task.getException());
+                                toastMaker(2);
+                                onBackPressed();
                             }
                         }
                     });
-                    toastMaker(1);
-                    finish();
-                    onBackPressed();
+
                 }
             }
         });
@@ -225,8 +231,16 @@ public class joinEvents extends AppCompatActivity{
     public void toastMaker(int state){
         if (state == 0)
             Toast.makeText(this, "Error. Event owner cannot join own event.", Toast.LENGTH_LONG).show();
+        else if (state == 1)
+            Toast.makeText(this, "Joined", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(this, "Joined", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error retrieving event", Toast.LENGTH_SHORT).show();
         return;
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(joinEvents.this, MainPage.class);
+        startActivity(intent);
     }
 }

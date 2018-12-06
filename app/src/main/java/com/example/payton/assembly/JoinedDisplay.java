@@ -115,13 +115,17 @@ public class JoinedDisplay extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (t.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(JoinedDisplay.this, MyEvents.class);
+        startActivity(intent);
+    }
 
 }
 
