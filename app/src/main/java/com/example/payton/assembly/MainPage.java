@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 public class MainPage extends AppCompatActivity {
 
     ListView display;
-    NavCalAdapter lAdapter;
+    ListAdapter lAdapter;
     String TAG = "MyEvents";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -84,7 +84,7 @@ public class MainPage extends AppCompatActivity {
                     description.add(descriptionBuffer);
                 }
 
-                lAdapter = new NavCalAdapter(getApplicationContext(), titles, description, eventIDs);
+                lAdapter = new ListAdapter(getApplicationContext(), titles, description, eventIDs);
                 lAdapter.notifyDataSetChanged();
                 display.setAdapter(lAdapter);
             }

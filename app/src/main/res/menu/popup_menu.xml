@@ -8,4 +8,8 @@
         android:id="@+id/destroy"
         android:icon="@android:drawable/ic_delete"
         android:title="Delete" />
+    <item
+        android:id="@+id/navigation"
+        android:icon="@drawable/placeholder"
+        android:title="Navigation" />
 </menu>

@@ -25,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +50,8 @@ public class NavCalAdapter extends BaseAdapter {
     String endTime;
     String location;
     String description;
+    Date sDate;
+    Date eDate;
 
     public NavCalAdapter(Context context, ArrayList<StringBuffer> Names, ArrayList<StringBuffer> Desc, ArrayList<String> eventIDs){
         //super(context, R.layout.single_list__item, utilsArrayList);
@@ -125,12 +128,22 @@ public class NavCalAdapter extends BaseAdapter {
                                             DocumentSnapshot snapshot = task.getResult();
                                             eventData = snapshot.getData();
 
-                                            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                                            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy'T'HH:mm");
                                             Date StartDate = (Date) eventData.get("Start Date");
                                             String strDate = dateFormat.format(StartDate);
+                                            try {
+                                                Date sDate = dateFormat.parse(strDate);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
 
                                             Date EndDate = (Date) eventData.get("End Date");
                                             String enDate = dateFormat.format(EndDate);
+                                            try {
+                                                eDate = dateFormat.parse(enDate);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
 
 
                                             eventName = eventData.get("Event Name").toString();
@@ -142,8 +155,8 @@ public class NavCalAdapter extends BaseAdapter {
                                                     .setData(CalendarContract.Events.CONTENT_URI)
                                                     .putExtra(CalendarContract.Events.TITLE, eventName)
                                                     .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
-                                                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, strDate)
-                                                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, enDate)
+                                                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, sDate)
+                                                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eDate)
                                                     .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
                                                     .putExtra(CalendarContract.Events.DESCRIPTION, description);
                                             intent.setType("vnd.android.cursor.item/event");
