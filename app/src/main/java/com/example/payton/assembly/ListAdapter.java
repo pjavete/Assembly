@@ -136,6 +136,8 @@ public class ListAdapter extends BaseAdapter {
                                         } else {
                                             delete.leaveEvent(userID, eventID);
                                         }
+                                        Intent deleteReturn = new Intent(context, MainPage.class);
+                                        context.startActivity(deleteReturn);
                                         break;
                                     default:
                                         break;

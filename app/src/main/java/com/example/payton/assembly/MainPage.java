@@ -114,19 +114,22 @@ public class MainPage extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.gohome:
-                        finish();
+
                         Intent homepage_redirect = new Intent(MainPage.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
                     case R.id.myevents:
+
                         Intent myevents_redirect = new Intent(MainPage.this, MyEvents.class);
                         startActivity(myevents_redirect);
                         return true;
                     case R.id.createEvent:
+
                         Intent createEvent_redirect = new Intent(MainPage.this, createEvents.class);
                         startActivity(createEvent_redirect);
                         return true;
                     case R.id.joinEvent:
+
                         Intent joinEvent_redirect = new Intent(MainPage.this, joinEvents.class);
                         startActivity(joinEvent_redirect);
                         return true;
@@ -167,6 +170,7 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth fAuth = FirebaseAuth.getInstance();
                 fAuth.signOut();
+
                 Intent signout_redirect = new Intent(MainPage.this, opening.class);
                 startActivity(signout_redirect);
             }

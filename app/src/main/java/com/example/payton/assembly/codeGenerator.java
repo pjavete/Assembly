@@ -39,8 +39,13 @@ public class codeGenerator extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("event code", code);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show();
-        finish();
-        startActivity(new Intent(codeGenerator.this, MainPage.class));
-        //:(((
+        startActivity(new Intent(codeGenerator.this, MyEvents.class));
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent editPage = new Intent(this, editEvents.class);
+        editPage.putExtra("editID", code);
+        startActivity(editPage);
     }
 }

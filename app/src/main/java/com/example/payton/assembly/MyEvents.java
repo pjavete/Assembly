@@ -97,7 +97,6 @@ public class MyEvents extends AppCompatActivity {
                         Intent intent2 = new Intent(MyEvents.this, JoinedDisplay.class);
                         startActivity(intent2);
                         return true;
-
                     default:
                         return true;
                 }
@@ -116,5 +115,11 @@ public class MyEvents extends AppCompatActivity {
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+        public void onBackPressed(){
+        Intent intent = new Intent(MyEvents.this, MainPage.class);
+        startActivity(intent);
     }
 }

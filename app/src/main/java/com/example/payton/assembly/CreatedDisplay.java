@@ -124,5 +124,9 @@ public class CreatedDisplay extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(CreatedDisplay.this, MyEvents.class);
+        startActivity(intent);
+    }
 }

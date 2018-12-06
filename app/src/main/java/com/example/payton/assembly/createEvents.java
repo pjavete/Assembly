@@ -117,7 +117,6 @@ public class createEvents extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.gohome:
-                        finish();
                         Intent homepage_redirect = new Intent(createEvents.this, MainPage.class);
                         startActivity(homepage_redirect);
                         return true;
@@ -269,7 +268,6 @@ public class createEvents extends AppCompatActivity {
                             endTime.getText().clear();
                             locationText.getText().clear();
                             descText.getText().clear();
-                            finish();
 
                             //pass the new event's id to code generator
                             passcode = new Intent(createEvents.this, codeGenerator.class);
@@ -287,4 +285,9 @@ public class createEvents extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(createEvents.this, MainPage.class);
+        startActivity(intent);
+    }
 }

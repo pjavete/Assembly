@@ -223,8 +223,7 @@ public class editEvents extends AppCompatActivity {
                             locationText.getText().clear();
                             descText.getText().clear();
 
-                            finish();
-                            startActivity(new Intent(editEvents.this, MainPage.class));
+                            startActivity(new Intent(editEvents.this, MyEvents.class));
                             Log.d(TAG, "DocumentSnapshot successfully written!");
                         }
                     })
@@ -236,6 +235,12 @@ public class editEvents extends AppCompatActivity {
                     });
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(editEvents.this, MainPage.class);
+        startActivity(intent);
     }
 
 }

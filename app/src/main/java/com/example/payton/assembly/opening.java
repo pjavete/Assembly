@@ -25,7 +25,6 @@ public class opening extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //finish();
                 Intent login_redirect = new Intent(opening.this, login.class);
                 startActivity(login_redirect);
             }
@@ -40,7 +39,6 @@ public class opening extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 Intent signup_redirect = new Intent(opening.this, signup.class);
                 startActivity(signup_redirect);
             }
