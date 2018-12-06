@@ -106,9 +106,6 @@ public class MainPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String userEmail = user.getEmail();
         navUsername.setText(userEmail);
-        //this sets the navigation header to the USER ID from firebase
-        Toast.makeText(this, "Welcome "+ userEmail
-                + " :)", Toast.LENGTH_LONG).show();
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

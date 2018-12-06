@@ -185,7 +185,7 @@ public class joinEvents extends AppCompatActivity{
                     eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful() && task.getResult().getData() != null) {
                                 DocumentSnapshot snapshot = task.getResult();
                                 eventData = snapshot.getData();
 
@@ -218,7 +218,7 @@ public class joinEvents extends AppCompatActivity{
                             } else {
                                 Log.d(TAG, "Error getting document.", task.getException());
                                 toastMaker(2);
-                                onBackPressed();
+                                codeText.getText().clear();
                             }
                         }
                     });
@@ -234,7 +234,7 @@ public class joinEvents extends AppCompatActivity{
         else if (state == 1)
             Toast.makeText(this, "Joined", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(this, "Error retrieving event", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error retrieving event, it may not exist.", Toast.LENGTH_LONG).show();
         return;
     }
 
