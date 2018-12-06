@@ -166,6 +166,20 @@ public class createEvents extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
+                            //clear all fields
+                            eventText.getText().clear();
+                            startDate.getText().clear();
+                            endDate.getText().clear();
+                            startTime.getText().clear();
+                            endTime.getText().clear();
+                            locationText.getText().clear();
+                            descText.getText().clear();
+                            finish();
+
+                            //pass the new event's id to code generator
+                            passcode = new Intent(createEvents.this, codeGenerator.class);
+                            passcode.putExtra("eventCode", eventid);
+                            startActivity(passcode);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -174,22 +188,7 @@ public class createEvents extends AppCompatActivity {
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
-
-            //clear all fields
-            eventText.getText().clear();
-            startDate.getText().clear();
-            endDate.getText().clear();
-            startTime.getText().clear();
-            endTime.getText().clear();
-            locationText.getText().clear();
-            descText.getText().clear();
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-            finish();
-
-            //pass the new event's id to code generator
-            passcode = new Intent(createEvents.this, codeGenerator.class);
-            passcode.putExtra("eventCode", eventid);
-            startActivity(passcode);
         }
     }
 

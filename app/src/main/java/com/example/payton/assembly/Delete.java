@@ -24,8 +24,7 @@ public class Delete {
 
         db.collection("users").document(UserID).collection("myEvents").document(EventID).delete();
 
-        final DocumentReference reference = db.collection("events").document(EventID);
-        Task<DocumentSnapshot> eventTask = reference.get();
+        Task<DocumentSnapshot> eventTask = db.collection("events").document(EventID).get();
         eventTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -35,10 +34,10 @@ public class Delete {
                     db.collection("users").document(ListUserID).collection("myEvents").document(EventID).delete();
                 }
                 db.collection("events").document(EventID).delete();
+                return;
             }
         });
 
-        return;
     }
 
     public void leaveEvent(String UserID, String EventID){
@@ -57,9 +56,9 @@ public class Delete {
                 List<String> UserList = (List<String>) snapshot.getData().get("Users");
                 UserList.remove(user.getEmail());
                 reference.update("Users", UserList);
+                return;
             }
         });
 
-        return;
     }
 }
