@@ -54,7 +54,7 @@ public class Delete extends AppCompatActivity {
                 DocumentSnapshot snapshot = task.getResult();
                 isOwner = (boolean) snapshot.getData().get("Owner");
                 EventName = snapshot.getData().get("Event Name").toString();
-                deletePrompt.setText("Are you sure you want to delete " + EventName + "?");
+                deletePrompt.setText("Are you sure you want to " + (isOwner ? "delete " : "leave ") + EventName + "?");
                 deleteYes.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         if(!isOwner){
